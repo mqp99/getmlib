@@ -14,23 +14,24 @@ header
 			font-weight: 500
 			text-align: center
 		.nav-menu
+			display: box
 			width: 200px
 			white-space: nowrap
-			overflow-x: auto
-			overflow-y: hidden
+			overflow: hidden
 			-webkit-mask-image: linear-gradient(to right, transparent, black 20px, black 90%, transparent)
-			-webkit-box-orient: horizontal
-			&:hover::-webkit-scrollbar
-				display: block
-			&::-webkit-scrollbar 
-				height: 4px
-				display: none
-			&::-webkit-scrollbar-track 
-				background: #ccc
-			&::-webkit-scrollbar-thumb
-				background: #888
-			&::-webkit-scrollbar-thumb:hover 
-				background: #555
+			box-orient: horizontal
+			//overflow-x: auto
+			// &:hover::-webkit-scrollbar
+			// 	display: block
+			// &::-webkit-scrollbar 
+			// 	height: 4px
+			// 	display: none
+			// &::-webkit-scrollbar-track 
+			// 	background: #ccc
+			// &::-webkit-scrollbar-thumb
+			// 	background: #888
+			// &::-webkit-scrollbar-thumb:hover 
+			// 	background: #555
 			.nav-item
 				color: #ddd
 				padding: 10px 5px

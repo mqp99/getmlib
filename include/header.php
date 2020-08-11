@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>MLib | Tài liệu</title>
+	<title>MLib | Get started first your project</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css">
 	<link rel="stylesheet" href="assets/sass/app.min.css">
@@ -14,8 +14,8 @@
 				MLib
 			</div>
 			<div class="nav-menu">
-				<a href="index.html" class="nav-item">Trang chủ</a>
-				<a href="document.html" class="nav-item active">Tài liệu</a>
+				<a href="index.php" class="nav-item active">Trang chủ</a>
+				<a href="document.php" class="nav-item">Tài liệu</a>
 				<a href="#" class="nav-item">Ví dụ</a>
 				<a href="#" class="nav-item">Ví dụ</a>
 				<a href="#" class="nav-item">Ví dụ</a>
@@ -26,14 +26,3 @@
 		</nav>
 	</header>
 	<main>
-		<div class="container">
-			<div class="main-left">
-				ssssssssssss
-			</div>
-			<div class="main-right">
-				sssssssss
-			</div>
-		</div>
-	</main>
-</body>
-</html>
