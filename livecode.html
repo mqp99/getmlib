@@ -38,9 +38,7 @@
 				</html>
 			</iframe>
 		</div>
-		<div class="auto-save">
-			Đã lưu
-		</div>
+		<div class="auto-save"></div>
 		<div class="setting">
 			<div class="settingCSS">
 				<div class="header-setting">
@@ -95,20 +93,34 @@
 	</script>
 	<script>
 		$(function () {
-			$('.addLinkStyle').keyup(function(){
-				_this = $(this).val();
-				if($.trim(_this) != '') {
-					$('.btn-addLinkStyle').fadeIn(100);
-				}else{
-					$('.btn-addLinkStyle').fadeOut(100);
-				}
-			})
-			$('.setting-toggle').click(function(){
-				$('.setting').toggleClass('active');
-			})
-			$('.btn-addLinkStyle').click(function(){
-				// code
-			})
+			/* 
+				+ ADD LINK CSS
+			*/
+				$('.addLinkStyle').keyup(function(){
+					_this = $(this).val();
+					$('.addLinkStyle').removeClass('error')
+					if($.trim(_this) != '') {
+						$('.btn-addLinkStyle').fadeIn(100);
+					}else{
+						$('.btn-addLinkStyle').fadeOut(100);
+					}
+				})
+				$('.setting-toggle').click(function(){
+					$('.setting').toggleClass('active');
+				})
+				$('.btn-addLinkStyle').click(function(){
+					var checkUrl = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+					var _valueThis = $('.addLinkStyle').val().trim();
+					if ( checkUrl.test(_valueThis) ){
+					    console.log('match')
+					    $('.addLinkStyle').removeClass('error')
+					}else{
+						$('.addLinkStyle').addClass('error')
+					}
+				})
+			/* 
+				+ END ADD LINK CSS
+			*/
 			var getRenderCode = localStorage.getItem('renderCode');
 			if(localStorage.getItem("renderCode") === null) {
 				var obj = { 'html': '<!-- HTML Here -->', 'css': '/* CSS Here */' };

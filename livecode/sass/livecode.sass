@@ -136,15 +136,21 @@ body
 							font-size: 13px
 							background: #3b3e40
 							border-color: #4c4848
+							&.error
+								border-color: #EC7063
+								box-shadow: 0 0 0 0.2rem #e74c3c59
+								&:focus
+									border-color: #58d68d
+									box-shadow: 0 0 0 0.2rem #2ecc7159
 							&:focus
 								color: #262626
 								background: #eee
-								border-color: #58d68d
+								border-color: #58d68d!important
 							&::placeholder
 								color: #888
 						.btn
 							display: none
-							margin-top: 5px
+							margin-top: 10px
 @media (max-width: 900px)
 	.CodeMirror
 		width: calc(50% - 25px)
