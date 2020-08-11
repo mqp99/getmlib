@@ -1,0 +1,202 @@
+*,
+*:focus
+	outline: none
+	box-sizing: border-box
+body
+	margin: 0
+	padding: 0
+.CodeMirror
+	height: calc(50vh - 35px)
+	border: 1px solid #e8e8e8
+.container
+	display: flex
+	.container-box
+		width: 60%
+		display: flex
+		flex-direction: column
+		.toggle
+			background: #364146
+			color: #fff
+			height: 35px
+			width: 100%
+			display: flex
+			padding: 0 10px
+			align-items: center
+			justify-content: space-between
+			label
+				font-family: monospace
+			span
+				cursor: pointer
+	.innerBoxPreview
+		width: 40%
+		min-width: 500px
+		border: 1px solid #c8c8c8
+		border-left: none
+		iframe
+			width: 100%
+			height: 100%
+.auto-save
+	position: fixed
+	top: -35px
+	left: 50%
+	opacity: 0
+	color: #fff
+	transition: .3s
+	z-index: 9999999
+	font-size: 14px
+	padding: 0 10px 4px
+	visibility: hidden
+	background: #60af63
+	transform: translateX(-50%)
+	box-shadow: 0 0 1rem .2rem rgba(0,0,0,.2)
+	border-bottom-right-radius: 5px
+	border-bottom-left-radius: 5px
+	&.active
+		top: 0
+		opacity: 1
+		z-index: 9999999
+		visibility: visible
+.setting
+	&.active
+		.settingCSS
+			top: 45%
+			opacity: 1
+			visibility: visible
+		&::before
+			position: fixed
+			content: ''
+			top: 0
+			left: 0
+			width: 100%
+			height: 100vh
+			background: rgba(0,0,0,.3)
+	.settingCSS
+		/*display: none*/
+		position: fixed
+		z-index: 999
+		top: 100%
+		left: 50%
+		opacity: 0
+		visibility: hidden
+		transform: translate(-50%,-50%)
+		background: #1a1a1b
+		height: 350px
+		width: 95%
+		max-width: 500px
+		transition: all .3s
+		border: 3px solid #495c65
+		.header-setting
+			position: relative
+			height: 35px
+			display: flex
+			color: #fff
+			padding: 0 5px
+			margin: 5px 10px 5px 10px
+			align-items: center
+			justify-content: space-between
+			border-bottom: 2px solid #24292b
+			&::before
+				position: absolute
+				content: ''
+				left: 0
+				bottom: -2px
+				height: 2px
+				width: 100px
+				background: #459c49
+			&--close
+				cursor: pointer
+				padding: 2px 5px
+				&:hover i
+					color: #da4b41
+					transition: all .2s ease-in
+		.body-setting
+			color: #fff
+			display: flex
+			padding: 5px 10px
+			&--left
+				width: 120px
+				.setting-link
+					color: #fff
+					padding: 4px 5px
+					display: block
+					font-size: 15px
+					text-decoration: none
+					&.active
+						background: #54565661
+						border-left: 4px solid #4CAF50
+			&--right
+				margin-left: 10px
+				width: calc(100% - 130px)
+				.component
+					&-title
+						margin-bottom: 5px
+					.form-group
+						.form-input
+							color: #eee
+							font-size: 13px
+							background: #3b3e40
+							border-color: #4c4848
+							&:focus
+								color: #262626
+								background: #eee
+								border-color: #58d68d
+							&::placeholder
+								color: #888
+						.btn
+							display: none
+							margin-top: 5px
+@media (max-width: 900px)
+	.CodeMirror
+		width: calc(50% - 25px)
+		height: 45vh
+	.container
+		display: inherit
+		.container-box
+			width: 100%
+			flex-direction: row
+			.toggle
+				background: #37474F
+				color: #fff
+				height: 45vh
+				width: 25px
+				align-items: center
+				padding: 15px 0 5px 0
+				flex-direction: column
+				label
+					font-size: 15px
+					transform: rotate(90deg)
+		.innerBoxPreview
+			width: 100%
+			height: 55vh
+			border: none
+
+@media (max-width: 500px)
+	.CodeMirror
+		width: 100%
+	.setting .settingCSS .body-setting
+		flex-direction: column
+		&--right
+			margin-left: 0
+			margin-top: 5px
+	.container
+		display: inherit
+		.container-box
+			width: 100%
+			flex-wrap: wrap
+			.toggle
+				background: #37474F
+				color: #fff
+				height: 30px
+				width: 100%!important
+				padding: 10px 5px
+				flex-direction: inherit
+				label
+					font-size: 15px
+					transform: rotate(0deg)
+		.innerBoxPreview
+			width: 100%
+			height: 50vh
+			min-width: 100%
+			border: none
+
+
