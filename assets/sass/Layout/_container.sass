@@ -1,0 +1,35 @@
+.container
+	display: flex
+	.main-left
+		width: 250px
+		height: calc(100vh - 60px)
+		border-right: 1px solid #e8e8e8
+		.form-group
+			width: 100%
+			padding: 10px 5px
+			display: inline-flex
+			border-bottom: 1px solid #e8e8e8
+		.side-menu
+			padding: 0 1rem
+			section
+				span
+					font-size: 15px
+					color: #666
+				.menu
+					margin-top: 5px
+					margin-bottom: 10px
+					a
+						display: block
+						color: #898989
+						font-size: 14px
+						padding: .2rem 0
+						text-decoration: none
+						&:hover 
+							color: #464646
+						&.active
+							color: #464646
+							font-weight: 500
+	.main-right
+		width: calc(100% - 250px)
+		height: calc(100vh - 60px)
+		padding: 0 5px

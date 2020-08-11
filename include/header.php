@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css">
 	<link rel="stylesheet" href="assets/sass/app.min.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 <body>
 	<header>
