@@ -5,7 +5,7 @@
 	<title>Live Cove with MLib</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="assets/sass/codemirror.css">
-	<link rel="stylesheet" href="assets/sass/ayu-dark.css">
+	<link rel="stylesheet" href="assets/sass/neat.css">
 	<style>
 		*,
 		*:focus {
@@ -138,24 +138,24 @@
 	<script>
 		var codeHTML = $('.innerHTML')[0];
 		var editor = CodeMirror.fromTextArea(codeHTML, {
-		    lineNumbers: true,
 		    tabSize:5,
-		    theme: 'ayu-dark',
-		    name: "htmlmixed",
+		    theme: 'neat',
+    		name: "text/html",
+    		lineWrapping: true,
 		});
 		var codeCSS = $('.innerCSS')[0];
 		var editorCSS = CodeMirror.fromTextArea(codeCSS, {
-		    lineNumbers: true,
 		    tabSize:5,
-		    theme: 'ayu-dark',
-		    mode: "text/css"
+		    theme: 'neat',
+		    mode: "text/css",
+    		lineWrapping: true,
 		});
 	</script>
 	<script>
 		$(function () {
 			if(localStorage.getItem("html") === null || localStorage.getItem("css") === null) {
-				var htmlGET = localStorage.setItem('html','');
-				var cssGET = localStorage.setItem('css','');
+				var htmlGET = localStorage.setItem('html','<!-- HTML here -->');
+				var cssGET = localStorage.setItem('css','/* CSS here */');
 				var htmlGET = localStorage.getItem('html');
 				var cssGET = localStorage.getItem('css');
 				editor.setValue(htmlGET);
@@ -175,34 +175,31 @@
 				var css = editorCSS.getValue();
 				return css;
 			}
+			previewAndUpdate();
 			editor.on('keyup',function(){
+				previewAndUpdate()
+			})
+			editorCSS.on('keyup',function(){
+				previewAndUpdate()
+			})
+			function previewAndUpdate()
+			{
 				var target = $('#liveUpdate')[0].contentWindow.document;
 				target.open();
 				target.close();
 				var html = fetchHTML();
-				setTimeout(()=>{
-					$('body', target).html(html);
-				},500);
-				setTimeout(()=>{
-					localStorage.setItem('html',html);
-					$('.auto-save').addClass('active');
-					setTimeout(()=>{ $('.auto-save').removeClass('active'); },1000);
-				},1000);
-			})
-			editorCSS.on('keyup',function(){
-				var target = $('#liveUpdate')[0].contentWindow.document;
-				target.open();
-				target.close();
 				var css = fetchCSS();
 				setTimeout(()=>{
+					$('body', target).html(html);
 					$('head', target).html(`<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css"><style>${css}</style>`);
 				},500);
 				setTimeout(()=>{
 					localStorage.setItem('css',css);
+					localStorage.setItem('html',html);
 					$('.auto-save').addClass('active');
 					setTimeout(()=>{ $('.auto-save').removeClass('active'); },1000);
-				},1000);
-			})
+				},2000);
+			}
 		})
 	</script>
 </body>
