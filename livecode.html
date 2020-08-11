@@ -153,12 +153,18 @@
 	</script>
 	<script>
 		$(function () {
-			if(localStorage.getItem('html') && localStorage.getItem('css')) {
+			if(localStorage.getItem("html") === null || localStorage.getItem("css") === null) {
+				var htmlGET = localStorage.setItem('html','');
+				var cssGET = localStorage.setItem('css','');
 				var htmlGET = localStorage.getItem('html');
 				var cssGET = localStorage.getItem('css');
 				editor.setValue(htmlGET);
 				editorCSS.setValue(cssGET);
 			}
+			var htmlGET = localStorage.getItem('html');
+			var cssGET = localStorage.getItem('css');
+			editor.setValue(htmlGET);
+			editorCSS.setValue(cssGET);
 			function fetchHTML()
 			{
 				var html = editor.getValue();
@@ -181,7 +187,7 @@
 					localStorage.setItem('html',html);
 					$('.auto-save').addClass('active');
 					setTimeout(()=>{ $('.auto-save').removeClass('active'); },1000);
-				},3000);
+				},1000);
 			})
 			editorCSS.on('keyup',function(){
 				var target = $('#liveUpdate')[0].contentWindow.document;
@@ -195,7 +201,7 @@
 					localStorage.setItem('css',css);
 					$('.auto-save').addClass('active');
 					setTimeout(()=>{ $('.auto-save').removeClass('active'); },1000);
-				},3000);
+				},1000);
 			})
 		})
 	</script>
