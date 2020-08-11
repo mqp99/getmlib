@@ -12,7 +12,7 @@
 	<header>
 		<nav>
 			<div class="nav-brand">
-				MLib
+				<img src="assets/imgs/logo-w.png" alt="">
 			</div>
 			<div class="nav-menu">
 				<a href="index.php" class="nav-item active">Trang chủ</a>
