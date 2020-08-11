@@ -1,0 +1,45 @@
+header
+	width: 100%
+	nav
+		width: 100%
+		display: flex
+		padding: 0 20px
+		height: 60px
+		background: #554b67
+		align-items: center
+		justify-content: space-between
+		.nav-brand
+			width: 50px
+			color: #fff
+			font-weight: 500
+			text-align: center
+		.nav-menu
+			width: 200px
+			white-space: nowrap
+			overflow-x: auto
+			overflow-y: hidden
+			-webkit-mask-image: linear-gradient(to right, transparent, black 20px, black 90%, transparent)
+			-webkit-box-orient: horizontal
+			&:hover::-webkit-scrollbar
+				display: block
+			&::-webkit-scrollbar 
+				height: 4px
+				display: none
+			&::-webkit-scrollbar-track 
+				background: #ccc
+			&::-webkit-scrollbar-thumb
+				background: #888
+			&::-webkit-scrollbar-thumb:hover 
+				background: #555
+			.nav-item
+				color: #ddd
+				padding: 10px 5px
+				margin-right: 5px
+				text-decoration: none
+				&:hover,
+				&.active
+					color: #fff
+		.nav-right
+			display: flex
+			justify-content: flex-end
+			width: calc(100% - 250px)
