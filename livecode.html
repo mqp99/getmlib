@@ -153,27 +153,22 @@
 	</script>
 	<script>
 		$(function () {
-			if(localStorage.getItem("html") === null || localStorage.getItem("css") === null) {
-				var htmlGET = localStorage.setItem('html','<!-- HTML here -->');
-				var cssGET = localStorage.setItem('css','/* CSS here */');
-				var htmlGET = localStorage.getItem('html');
-				var cssGET = localStorage.getItem('css');
-				editor.setValue(htmlGET);
-				editorCSS.setValue(cssGET);
+			var getRenderCode = localStorage.getItem('renderCode');
+			if(localStorage.getItem("renderCode") === null) {
+				var obj = { 'html': '<!-- HTML Here -->', 'css': '/* CSS Here */' };
+				var renderCode = localStorage.setItem('renderCode',JSON.stringify(obj));
+				var getRenderCode = JSON.parse(localStorage.getItem('renderCode'));
 			}
-			var htmlGET = localStorage.getItem('html');
-			var cssGET = localStorage.getItem('css');
-			editor.setValue(htmlGET);
-			editorCSS.setValue(cssGET);
+			var getRenderCode = JSON.parse(localStorage.getItem('renderCode'));
+			editor.setValue(getRenderCode.html);
+			editorCSS.setValue(getRenderCode.css);
 			function fetchHTML()
 			{
-				var html = editor.getValue();
-				return html;
+				return html = editor.getValue();
 			}
 			function fetchCSS()
 			{
-				var css = editorCSS.getValue();
-				return css;
+				return css = editorCSS.getValue();
 			}
 			previewAndUpdate();
 			editor.on('keyup',function(){
@@ -194,8 +189,12 @@
 					$('head', target).html(`<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css"><style>${css}</style>`);
 				},500);
 				setTimeout(()=>{
-					localStorage.setItem('css',css);
-					localStorage.setItem('html',html);
+					var obj = {
+						'html': html,
+						'css': css
+					};
+					localStorage.setItem('renderCode',JSON.stringify(obj));
+					//localStorage.setItem('html',html);
 					$('.auto-save').addClass('active');
 					setTimeout(()=>{ $('.auto-save').removeClass('active'); },1000);
 				},2000);
