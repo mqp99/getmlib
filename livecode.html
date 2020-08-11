@@ -153,10 +153,12 @@
 	</script>
 	<script>
 		$(function () {
-			var htmlGET = localStorage.getItem('html');
-			var cssGET = localStorage.getItem('css');
-			editor.setValue(htmlGET)
-			editorCSS.setValue(cssGET)
+			if(localStorage.getItem('html') && localStorage.getItem('css')) {
+				var htmlGET = localStorage.getItem('html');
+				var cssGET = localStorage.getItem('css');
+				editor.setValue(htmlGET);
+				editorCSS.setValue(cssGET);
+			}
 			function fetchHTML()
 			{
 				var html = editor.getValue();
