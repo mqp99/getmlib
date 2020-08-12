@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css">
 	<link rel="stylesheet" href="livecode/sass/codemirror.css">
-	<link rel="stylesheet" href="livecode/sass/neat.css">
+	<link rel="stylesheet" href="livecode/sass/material-palenight.css">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
 	<link rel="stylesheet" href="livecode/sass/livecode.css">
 </head>
@@ -20,7 +20,9 @@
 			<textarea class="innerBox innerHTML" placeholder="HTML here..."></textarea>
 			<div class="toggle">
 				<label>CSS</label>
-				<span class="setting-toggle"><i class="fal fa-plus"></i></span>
+				<div>
+					<span class="setting-toggle"><i class="fal fa-plus"></i></span>
+				</div>
 			</div>
 			<textarea class="innerBox innerCSS" placeholder="CSS here..."></textarea>
 		</div>
@@ -76,17 +78,17 @@
 	<script>
 		var codeHTML = $('.innerHTML')[0];
 		var editor = CodeMirror.fromTextArea(codeHTML, {
-    		//lineNumbers: true,
+    		lineNumbers: true,
 		    tabSize:5,
-		    theme: 'neat',
+		    theme: 'material-palenight',
     		name: "text/html",
     		lineWrapping: true,
 		});
 		var codeCSS = $('.innerCSS')[0];
 		var editorCSS = CodeMirror.fromTextArea(codeCSS, {
-    		//lineNumbers: true,
+    		lineNumbers: true,
 		    tabSize:5,
-		    theme: 'neat',
+		    theme: 'material-palenight',
 		    mode: "text/css",
     		lineWrapping: true,
 		});
@@ -112,7 +114,6 @@
 					var checkUrl = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
 					var _valueThis = $('.addLinkStyle').val().trim();
 					if ( checkUrl.test(_valueThis) ){
-					    console.log('match')
 					    $('.addLinkStyle').removeClass('error')
 					}else{
 						$('.addLinkStyle').addClass('error')
