@@ -124,7 +124,7 @@
 			*/
 			var getRenderCode = localStorage.getItem('renderCode');
 			if(localStorage.getItem("renderCode") === null) {
-				var obj = { 'html': '<!-- HTML Here -->', 'css': '/* CSS Here */' };
+				var obj = { 'html': '<!-- HTML Here -->\n', 'css': '/* CSS Here */\n' };
 				var renderCode = localStorage.setItem('renderCode',JSON.stringify(obj));
 				var getRenderCode = JSON.parse(localStorage.getItem('renderCode'));
 			}
