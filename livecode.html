@@ -139,14 +139,14 @@
 			{
 				return css = editorCSS.getValue();
 			}
-			previewAndUpdate();
+			previewAndUpdate(isSaveAlert = false);
 			editor.on('keyup',function(){
-				previewAndUpdate()
+				previewAndUpdate(isSaveAlert = true)
 			})
 			editorCSS.on('keyup',function(){
-				previewAndUpdate()
+				previewAndUpdate(isSaveAlert = true)
 			})
-			function previewAndUpdate()
+			function previewAndUpdate(isSaveAlert)
 			{
 				var target = $('#liveUpdate')[0].contentWindow.document;
 				target.open();
@@ -157,17 +157,19 @@
 					$('body', target).html(html);
 					$('head', target).html(`<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css"><style>${css}</style>`);
 				},500);
-				setTimeout(()=>{
-					var obj = {
-						'html': html,
-						'css': css
-					};
-					localStorage.setItem('renderCode',JSON.stringify(obj));
-					//localStorage.setItem('html',html);
-					$('.auto-save').html('Đang lưu...').addClass('active');
-					setTimeout(()=>{ $('.auto-save').html('Đã lưu') },1500);
-					setTimeout(()=>{ $('.auto-save').removeClass('active'); },2000);
-				},2000);
+				if(isSaveAlert == true) {
+					setTimeout(()=>{
+						var obj = {
+							'html': html,
+							'css': css
+						};
+						localStorage.setItem('renderCode',JSON.stringify(obj));
+						//localStorage.setItem('html',html);
+						$('.auto-save').html('Đang lưu...').addClass('active');
+						setTimeout(()=>{ $('.auto-save').html('Đã lưu') },500);
+						setTimeout(()=>{ $('.auto-save').removeClass('active'); },3000);
+					},2000);
+				}
 			}
 		})
 	</script>
