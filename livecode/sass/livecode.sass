@@ -60,6 +60,7 @@ body
 	&.active
 		.settingCSS
 			top: 45%
+			transform: translate(-50%,-50%) rotate(0deg) scale(1)
 			opacity: 1
 			visibility: visible
 		&::before
@@ -74,11 +75,11 @@ body
 		/*display: none*/
 		position: fixed
 		z-index: 999
-		top: 100%
+		top: 200%
 		left: 50%
 		opacity: 0
 		visibility: hidden
-		transform: translate(-50%,-50%)
+		transform: translate(-50%,-50%) rotate(45deg) scale(.8)
 		background: #1a1a1b
 		height: 350px
 		width: 95%
@@ -135,7 +136,7 @@ body
 							color: #eee
 							font-size: 13px
 							background: #3b3e40
-							border-color: #4c4848
+							border-color: #3b3e40
 							&.error
 								border-color: #EC7063
 								box-shadow: 0 0 0 0.2rem #e74c3c59
@@ -194,7 +195,7 @@ body
 				color: #fff
 				height: 40px
 				width: 100%!important
-				padding: 10px 5px
+				padding: 10px
 				flex-direction: inherit
 				label
 					font-size: 15px
