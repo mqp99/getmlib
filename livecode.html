@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css">
 	<link rel="stylesheet" href="livecode/sass/codemirror.css">
-	<link rel="stylesheet" href="livecode/sass/ayu-dark.css">
+	<link rel="stylesheet" href="livecode/sass/ayu-mirage.css">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
 	<link rel="stylesheet" href="livecode/sass/livecode.css">
 </head>
@@ -15,13 +15,15 @@
 		<div class="container-box">
 			<div class="toggle">
 				<label>HTML</label>
-				<span>&nbsp;</span>
+				<div>
+					<span class="setting-html-toggle"><i class="fal fa-chevron-down"></i></span>
+				</div>
 			</div>
 			<textarea class="innerBox innerHTML" placeholder="HTML here..."></textarea>
 			<div class="toggle">
 				<label>CSS</label>
 				<div>
-					<span class="setting-toggle"><i class="fal fa-plus"></i></span>
+					<span class="setting-toggle"><i class="fal fa-chevron-down"></i></span>
 				</div>
 			</div>
 			<textarea class="innerBox innerCSS" placeholder="CSS here..."></textarea>
@@ -41,14 +43,32 @@
 			</iframe>
 		</div>
 		<div class="auto-save"></div>
-		<div class="setting">
+		<div class="setting html">
 			<div class="settingCSS">
 				<div class="header-setting">
 					<span class="header-setting--title">Live Setting</span>
-					<span class="header-setting--close setting-toggle"><i class="fal fa-times"></i></span>
+					<span class="header-setting--close setting-close"><i class="fal fa-times"></i></span>
 				</div>
 				<div class="body-setting">
 					<div class="body-setting--left">
+						<a href="#" class="setting-link active">HTML</a>
+						<a href="#" class="setting-link setting-toggle">CSS</a>
+					</div>
+					<div class="body-setting--right">
+						<p>Chưa có gì để Setting</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="setting css">
+			<div class="settingCSS">
+				<div class="header-setting">
+					<span class="header-setting--title">Live Setting</span>
+					<span class="header-setting--close setting-close"><i class="fal fa-times"></i></span>
+				</div>
+				<div class="body-setting">
+					<div class="body-setting--left">
+						<a href="#" class="setting-link setting-html-toggle">HTML</a>
 						<a href="#" class="setting-link active">CSS</a>
 					</div>
 					<div class="body-setting--right">
@@ -80,7 +100,7 @@
 		var editor = CodeMirror.fromTextArea(codeHTML, {
     		lineNumbers: true,
 		    tabSize:5,
-		    theme: 'ayu-dark',
+		    theme: 'ayu-mirage',
     		name: "text/html",
     		lineWrapping: true,
 		});
@@ -88,7 +108,7 @@
 		var editorCSS = CodeMirror.fromTextArea(codeCSS, {
     		lineNumbers: true,
 		    tabSize:5,
-		    theme: 'ayu-dark',
+		    theme: 'ayu-mirage',
 		    mode: "text/css",
     		lineWrapping: true,
 		});
@@ -107,8 +127,16 @@
 						$('.btn-addLinkStyle').fadeOut(100);
 					}
 				})
+				$('.setting-html-toggle').click(function(){
+					$('.setting.html').addClass('active');
+					$('.setting.css').removeClass('active');
+				})
 				$('.setting-toggle').click(function(){
-					$('.setting').toggleClass('active');
+					$('.setting.html').removeClass('active');
+					$('.setting.css').addClass('active');
+				})
+				$('.setting-close').click(function(){
+					$('.setting, .setting.html').removeClass('active');
 				})
 				$('.btn-addLinkStyle').click(function(){
 					var checkUrl = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
