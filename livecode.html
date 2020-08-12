@@ -42,7 +42,6 @@
 				</html>
 			</iframe>
 		</div>
-		<div class="auto-save"></div>
 		<div class="setting html">
 			<div class="settingCSS">
 				<div class="header-setting">
@@ -75,20 +74,18 @@
 						<div class="component">
 							<div class="component-title">Thêm liên kết</div>
 							<div class="form-group">
-								<input type="text" class="form-input focus-green addLinkStyle" placeholder="Eg: https://mqp99.github.io/mlib/sass/mlib.min.css">
+								<input type="text" class="form-input focus-green addLinkStyle" placeholder="Nhập liên kết CSS CDN mà bạn muốn !">
 								<button class="btn btn-green btn-sm btn-block btn-addLinkStyle">Thêm</button>
 							</div>
 						</div>
-						<div class="component">
+						<div class="component renderLink">
 							<div class="component-title">Liên kết đã nhúng</div>
-							<div class="form-group">
-								<input type="text" class="form-input focus-green form-sm" placeholder="https://mqp99.github.io/mlib/sass/mlib.min.css" readonly disabled>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="auto-save"></div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="livecode/js/codemirror.js"></script>
@@ -142,6 +139,18 @@
 					var checkUrl = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
 					var _valueThis = $('.addLinkStyle').val().trim();
 					if ( checkUrl.test(_valueThis) ){
+						var getAttrStyle = JSON.parse(localStorage.getItem('setAttrStyle'));
+						if(getAttrStyle.hrefs != ''){
+							function checkValue(checkValue) { return valueCheck = (checkValue == _valueThis); }
+							getAttrStyle.hrefs.split(',').find(checkValue);
+							if(valueCheck == false){
+								$('.addLinkStyle').val('');
+								appendLink(_valueThis);
+								localStorage.setItem('setAttrStyle',JSON.stringify(
+									{ 'hrefs': getAttrStyle.hrefs += `,${_valueThis}`}
+								));
+							}
+						}
 					    $('.addLinkStyle').removeClass('error')
 					}else{
 						$('.addLinkStyle').addClass('error')
@@ -150,7 +159,6 @@
 			/* 
 				+ END ADD LINK CSS
 			*/
-			var getRenderCode = localStorage.getItem('renderCode');
 			if(localStorage.getItem("renderCode") === null) {
 				var obj = { 'html': '<!-- HTML Here -->\n', 'css': '/* CSS Here */\n' };
 				var renderCode = localStorage.setItem('renderCode',JSON.stringify(obj));
@@ -167,6 +175,7 @@
 			{
 				return css = editorCSS.getValue();
 			}
+			addLinkStyleSetting();
 			previewAndUpdate(isSaveAlert = false);
 			editor.on('keyup',function(){
 				previewAndUpdate(isSaveAlert = true)
@@ -174,8 +183,25 @@
 			editorCSS.on('keyup',function(){
 				previewAndUpdate(isSaveAlert = true)
 			})
-			function previewAndUpdate(isSaveAlert)
-			{
+			function addLinkStyleSetting() {
+				if(localStorage.getItem("setAttrStyle") === null) {
+					localStorage.setItem('setAttrStyle',JSON.stringify({'hrefs':'https://mqp99.github.io/mlib/sass/mlib.min.css'}));
+					var getAttrStyle = JSON.parse(localStorage.getItem('setAttrStyle'));
+				}
+				var getAttrStyle = JSON.parse(localStorage.getItem('setAttrStyle'));
+				$.each(getAttrStyle.hrefs.split(','), function(index, item) {
+					appendLink(item);
+				});
+			}
+			function appendLink(item){
+				var _html = `
+						<div class="form-group">
+							<input type="text" class="form-input focus-green form-sm" value="${item}" readonly disabled>
+							<span class="fal fa-minus-octagon"></span>
+						</div>`;
+				$('.renderLink').append(_html);
+			}
+			function previewAndUpdate(isSaveAlert){
 				var target = $('#liveUpdate')[0].contentWindow.document;
 				target.open();
 				target.close();
@@ -183,7 +209,11 @@
 				var css = fetchCSS();
 				setTimeout(()=>{
 					$('body', target).html(html);
-					$('head', target).html(`<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css"><style>${css}</style>`);
+					$('head', target).append(`<style>${css}</style>`);
+					var getAttrStyle = JSON.parse(localStorage.getItem('setAttrStyle'));
+					for(var k in getAttrStyle.hrefs.split(',')) {
+						$('head', target).append(`<link rel="stylesheet" href='${getAttrStyle.hrefs.split(',')[k]}'>`);
+					}
 				},500);
 				if(isSaveAlert == true) {
 					setTimeout(()=>{

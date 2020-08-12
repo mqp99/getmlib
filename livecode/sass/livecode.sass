@@ -75,6 +75,8 @@ body
 		/*display: none*/
 		position: fixed
 		z-index: 999
+		// top: 100px
+		// left: 100px
 		top: 200%
 		left: 50%
 		opacity: 0
@@ -129,9 +131,22 @@ body
 				margin-left: 10px
 				width: calc(100% - 130px)
 				.component
+					&.renderLink
+						overflow-y: auto
+						height: 200px
+						&::-webkit-scrollbar
+							width: 5px
+							display: none
+						&::-webkit-scrollbar-track
+							background: #ccc
+						&::-webkit-scrollbar-thumb
+							background: #888
+						&::-webkit-scrollbar-thumb:hover
+							background: #555
 					&-title
 						margin-bottom: 5px
 					.form-group
+						position: relative
 						.form-input
 							color: #eee
 							font-size: 13px
@@ -143,6 +158,8 @@ body
 								&:focus
 									border-color: #58d68d
 									box-shadow: 0 0 0 0.2rem #2ecc7159
+							&[disabled]
+								color: #aaa
 							&:focus
 								color: #262626
 								background: #eee
@@ -152,6 +169,21 @@ body
 						.btn
 							display: none
 							margin-top: 10px
+
+						span
+							cursor: pointer
+							position: absolute
+							top: 3px
+							right: 4px
+							color: #f44336
+							padding: 4px
+							border-radius: 4px
+							background: #f4433640
+							font-size: 13px
+							transition: all .2s
+							&:hover
+								color: #ff7a70
+								background: #f4433650
 @media (max-width: 900px)
 	.CodeMirror
 		width: calc(50% - 25px)
