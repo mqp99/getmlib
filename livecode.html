@@ -135,12 +135,28 @@
 				$('.setting-close').click(function(){
 					$('.setting, .setting.html').removeClass('active');
 				})
+				/*$(document).on('click','.remove-attr-link',function(){
+					var _dataHref = $(this).attr('data-href');
+					var getAttrStyle = JSON.parse(localStorage.getItem('setAttrStyle'));
+					function checkValue(checkValue) { return valueCheck = (checkValue == _dataHref); }
+					getAttrStyle.hrefs.split(',').find(checkValue);
+					if(valueCheck == true){
+						localStorage.setItem('setAttrStyle',JSON.stringify(
+							{ 'hrefs': getAttrStyle.hrefs = ''}
+						));
+					}
+					console.log('s')
+				})*/
 				$('.btn-addLinkStyle').click(function(){
 					var checkUrl = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
 					var _valueThis = $('.addLinkStyle').val().trim();
 					if ( checkUrl.test(_valueThis) ){
 						var getAttrStyle = JSON.parse(localStorage.getItem('setAttrStyle'));
-						if(getAttrStyle.hrefs != ''){
+						if(getAttrStyle.hrefs == ''){
+							localStorage.setItem('setAttrStyle',JSON.stringify(
+								{ 'hrefs': getAttrStyle.hrefs = `${_valueThis}`}
+							));
+						}else{
 							function checkValue(checkValue) { return valueCheck = (checkValue == _valueThis); }
 							getAttrStyle.hrefs.split(',').find(checkValue);
 							if(valueCheck == false){
@@ -197,7 +213,7 @@
 				var _html = `
 						<div class="form-group">
 							<input type="text" class="form-input focus-green form-sm" value="${item}" readonly disabled>
-							<span class="fal fa-minus-octagon"></span>
+							<span class="fal fa-minus-octagon remove-attr-link" data-href="${item}"></span>
 						</div>`;
 				$('.renderLink').append(_html);
 			}
