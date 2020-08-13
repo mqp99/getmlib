@@ -45,7 +45,7 @@ $(function(){
 					console.log('result off')
 		}else{
 					console.log('result on')
-			//$('main').removeClass('full-height-code');
+			$('main').removeClass('full-height-code');
 		}
 	})
 })
