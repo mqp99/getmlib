@@ -3,24 +3,34 @@ $(function() {
 		lineNumbers: true,
 	    tabSize:5,
 	    theme: 'ayu-mirage',
-		name: "htmlmixed",
+		mode: "text/html",
+   		keyMap: "sublime",
 		lineWrapping: true,
+    	autoCloseBrackets: true,
+		extraKeys: {
+			'Ctrl-Space': 'autocomplete'
+		}
 	});
 	var editorCSS = CodeMirror.fromTextArea($('#cssCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
 	    theme: 'ayu-mirage css',
-		mode: "text/css",
+		mode: "css",
 		lineWrapping: true,
+    	autoCloseBrackets: true,
+		extraKeys: {
+			'Ctrl-Space': 'autocomplete'
+		}
 	});
 	var editorJS = CodeMirror.fromTextArea($('#jsCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
 	    theme: 'ayu-mirage js',
 		mode: "text/javascript",
-		lineWrapping: true,
+    	autoCloseBrackets: true,
+		lineWrapping: true
 	});
-	editorHTML.on('change',function(){ showPreview(); })
+	editorHTML.on('change',function(){ showPreview();})
 	editorCSS.on('change',function(){ showPreview(); })
 	editorJS.on('change',function(){ showPreview(); })
 	function showPreview(){
