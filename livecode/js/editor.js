@@ -30,6 +30,12 @@ $(function() {
     	autoCloseBrackets: true,
 		lineWrapping: true
 	});
+	editorHTML.on('keypress',function(){
+		CodeMirror.commands.autocomplete(editorHTML);
+	})
+	editorCSS.on('keypress',function(){
+		CodeMirror.commands.autocomplete(editorCSS);
+	})
 	editorHTML.on('change',function(){ showPreview();})
 	editorCSS.on('change',function(){ showPreview(); })
 	editorJS.on('change',function(){ showPreview(); })
