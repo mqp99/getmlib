@@ -6,13 +6,18 @@ $(function(){
 		$(this).toggleClass('selected');
 		for(i=0;i<=$('.btn-code').length;i++){
 			if(!$('.btn-code').not('.selected')[i]) {
-				if($('.btn-code').not('.selected').length == 3) {
-					$('.btn-result').addClass('selected').attr('disabled',true);
-					$('main').addClass('full-height-view');
-				}else{
+				if($('.btn-code').not('.selected').length == 2) {
+					console.log('btn on')
 					$('.btn-result').attr('disabled',false);
-					$('main').removeClass('full-height-code').removeClass('full-height-view');
+					$('main').removeClass('full-height-view');
+					//$('main').removeClass('full-height-code').removeClass('full-height-view');
+				}else{
+					console.log('btn off')
+					$('.btn-result').addClass('selected').attr('disabled',true);
+					$('main').removeClass('full-height-code').addClass('full-height-view');
+					//$('main').addClass('full-height-view').addClass('full-height-code');
 				}
+				console.log($('.btn-code').not('.selected').length)
 			}
 		}
 		switch (_this) {
@@ -35,10 +40,12 @@ $(function(){
 	})
 	$('.btn-result').on('click',function(){
 		$(this).toggleClass('selected');
-		if($('.btn-result').not('.selected').length == 1) {
+		if($(this).not('.selected').length == 1) {
 			$('main').addClass('full-height-code');
+					console.log('result off')
 		}else{
-			$('main').removeClass('full-height-code');
+					console.log('result on')
+			//$('main').removeClass('full-height-code');
 		}
 	})
 })
