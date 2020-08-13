@@ -37,13 +37,13 @@ main {
 					border-top-right-radius: .25rem;
 					border-bottom-right-radius: 2px;
 				}
-				&:not(.active) {
+				&:not(.selected) {
 					border-top: 2px solid #555c6b;
 				}
 				&:focus {
 					animation: scale .3s 1;
 				}
-				&.active {
+				&.selected {
 					background: transparent;//#555c6b;
 					border-top: 2px solid #87929a;
 				}
@@ -61,7 +61,7 @@ main {
 			&:focus {
 				animation: scale .3s 1;
 			}
-			&.active {
+			&.selected {
 				background: transparent;//#555c6b;
 				border-top: 2px solid #87929a;
 			}
@@ -112,16 +112,31 @@ main {
 		.code-mobile-detech {
 			display: flex;
 		}
-		.code-area.active {
-			height: calc(100vh - 100px)!important;
-			.code-area-html,
-			.code-area-css,
-			.code-area-js {
+		&.full-height-code {
+			.code-area {
 				height: calc(100vh - 100px)!important;
+				.code-area-html,
+				.code-area-css,
+				.code-area-js {
+					height: calc(100vh - 100px)!important;
+				}
+			}
+			.preview-area {
+				height: 0;
 			}
 		}
-		.preview-area.active {
-			height: 0;
+		&.full-height-view {
+			.code-area {
+				height: 0!important;
+				.code-area-html,
+				.code-area-css,
+				.code-area-js {
+					height: 0!important;
+				}
+			}
+			.preview-area {
+				height: calc(100vh - 100px)!important;
+			}
 		}
 		.code-area {
 			width: 100%;
