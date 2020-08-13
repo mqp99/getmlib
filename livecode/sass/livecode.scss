@@ -1,0 +1,143 @@
+header {
+	height: 50px;
+	background: #262626;
+}
+%btnColor {
+	background: #555c6b;
+	border-color: #555c6b;
+}
+main {
+	display: flex;
+	flex-wrap: wrap;
+	.code-mobile-detech {
+		display: none;
+		color: #fff;
+		width: 100%;
+		height: 50px;
+		padding: 0 10px;
+		background: #2d3340;
+		align-items: center;
+		justify-content: space-between;
+		.code-setting {
+			i {
+				@extend %btnColor;
+			}
+		}
+		.code-select-toggle {
+			display: flex;
+			button {
+				margin-right: 1px;
+				@extend %btnColor;
+				transition: transform .2s;
+				&:first-child {
+					border-top-left-radius: .25rem;
+					border-bottom-left-radius: 2px;
+				}
+				&:last-child {
+					border-top-right-radius: .25rem;
+					border-bottom-right-radius: 2px;
+				}
+				&:not(.active) {
+					border-top: 2px solid #555c6b;
+				}
+				&:focus {
+					animation: scale .3s 1;
+				}
+				&.active {
+					background: transparent;//#555c6b;
+					border-top: 2px solid #87929a;
+				}
+			}
+		}
+	}
+	.code-area {
+		width: 50%;
+		height: calc(100vh - 50px);
+		.code-area-html,
+		.code-area-css,
+		.code-area-js {
+			// border: 1px solid;
+			overflow: hidden;
+			height: calc((100vh - 50px) / 3);
+			.header-html,
+			.header-css,
+			.header-js {
+				height: 35px;
+				color: #fff;
+				padding: 0 10px;
+				line-height: 36px;
+				background: #2d3340;
+				font-size: 15px;
+				font-family: monospace;
+			}
+			.CodeMirror {
+				height: calc(100% - 35px);
+			}
+		}
+	}
+	.preview-area {
+		width: 50%;
+		height: calc(100vh - 50px);
+		iframe {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+@media (max-width: 800px)
+{
+	header {
+	}
+	main {
+		height: calc(100vh - 50px);
+		flex-direction: row;
+		.code-mobile-detech {
+			display: flex;
+		}
+		.code-area {
+			width: 100%;
+			height: 205px;
+			.code-area-html,
+			.code-area-css,
+			.code-area-js {
+				&.active {
+					opacity: 1;
+					visibility: visible;
+				}
+				// border: 1px solid;
+				//display: none;
+				opacity: 0;
+				width: 100%;
+				position: absolute;
+				visibility: hidden;
+				.header-html,
+				.header-css,
+				.header-js {
+					display: none;
+				}
+				.CodeMirror {
+					height: 100%;
+				}
+			}
+			.code-area-css,
+			.code-area-js {
+			}
+		}
+		.preview-area {
+			width: 100%;
+			height: calc(100vh - 305px);
+		}
+	}
+}
+@keyframes scale
+{
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(.8);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

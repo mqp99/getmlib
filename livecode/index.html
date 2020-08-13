@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Live code | MLib</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://mqp99.github.io/mlib/sass/mlib.min.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
+	<link rel="stylesheet" href="https://mqp99.github.io/getmlib/livecode/sass/codemirror.css">
+	<link rel="stylesheet" href="https://mqp99.github.io/getmlib/livecode/sass/ayu-mirage.css">
+	<link rel="stylesheet" href="sass/livecode.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://mqp99.github.io/getmlib/livecode/js/codemirror.js"></script>
+	<script src="https://mqp99.github.io/getmlib/livecode/js/javascript.js"></script>
+	<script src="https://mqp99.github.io/getmlib/livecode/js/htmlmixed.js"></script>
+	<script src="https://mqp99.github.io/getmlib/livecode/js/css.js"></script>
+	<script src="js/editor.js"></script>
+	<script src="js/livecode.js"></script>
+</head>
+<body>
+	<header>
+		<nav></nav>
+	</header>
+	<main>
+		<div class="code-mobile-detech">
+			<div class="code-setting">
+				<i class="fas fa-cog btn btn-blue-bold btn-sm bd-radius"></i>
+			</div>
+			<div class="code-select-toggle">
+				<button class="btn btn-blue-bold btn-sm active" data-type="html">HTML</button>
+				<button class="btn btn-blue-bold btn-sm" data-type="css">CSS</button>
+				<button class="btn btn-blue-bold btn-sm" data-type="js">JS</button>
+				<!-- <button class="btn btn-blue-bold btn-sm active">RESULT</button> -->
+			</div>
+		</div>
+		<div class="code-area">
+			<div class="code-area-html">
+				<div class="header-html">
+					<span>HTML</span>
+				</div>
+				<textarea id="htmlCode"></textarea>
+			</div>
+			<div class="code-area-css">
+				<div class="header-css">
+					<span>CSS</span>
+				</div>
+				<textarea id="cssCode"></textarea>
+			</div>
+			<div class="code-area-js">
+				<div class="header-js">
+					<span>JS</span>
+				</div>
+				<textarea id="jsCode"></textarea>
+			</div>
+		</div>
+		<div class="preview-area">
+			<iframe id="preview-window" frameborder="0"></iframe>
+		</div>
+	</main>
+</body>
+</html>
