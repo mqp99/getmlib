@@ -125,7 +125,7 @@ main {
 		}
 		.preview-area {
 			width: 100%;
-			height: calc(100vh - 305px);
+			height: -webkit-fill-available;
 		}
 	}
 }
