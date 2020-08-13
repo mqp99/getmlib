@@ -6,6 +6,20 @@ header {
 	background: #555c6b;
 	border-color: #555c6b;
 }
+.CodeMirror-vscrollbar {
+	&::-webkit-scrollbar {
+	  width: 5px;
+	}
+	&::-webkit-scrollbar-track {
+	  background: transparent; 
+	}
+	&::-webkit-scrollbar-thumb {
+	  background: #666; 
+	}
+	&::-webkit-scrollbar-thumb:hover {
+	  background: #666; 
+	}
+}
 main {
 	display: flex;
 	flex-wrap: wrap;
