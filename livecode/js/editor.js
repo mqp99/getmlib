@@ -29,7 +29,8 @@ $(function() {
 		var jsValue = '<scri'+'pt>'+editorJS.getValue()+'</scri'+'pt>';
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(htmlValue,cssValue,jsValue);
+		frame.write(htmlValue,jsValue);
 		frame.close();
+		$('head',frame).html(cssValue);
 	}
 });

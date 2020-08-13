@@ -26,8 +26,8 @@ main {
 		.code-select-toggle {
 			display: flex;
 			button {
-				margin-right: 1px;
 				@extend %btnColor;
+				margin-right: 1px;
 				transition: transform .2s;
 				&:first-child {
 					border-top-left-radius: .25rem;
@@ -48,6 +48,24 @@ main {
 					border-top: 2px solid #87929a;
 				}
 			}
+		}
+		.btn-result {
+			@extend %btnColor;
+			margin-right: 1px;
+			border-top-left-radius: .25rem;
+			border-top-right-radius: .25rem;
+			transition: transform .2s;
+			&:not(.active) {
+				border-top: 2px solid #555c6b;
+			}
+			&:focus {
+				animation: scale .3s 1;
+			}
+			&.active {
+				background: transparent;//#555c6b;
+				border-top: 2px solid #87929a;
+			}
+
 		}
 	}
 	.code-area {
@@ -93,6 +111,17 @@ main {
 		flex-direction: row;
 		.code-mobile-detech {
 			display: flex;
+		}
+		.code-area.active {
+			height: calc(100vh - 100px)!important;
+			.code-area-html,
+			.code-area-css,
+			.code-area-js {
+				height: calc(100vh - 100px)!important;
+			}
+		}
+		.preview-area.active {
+			height: 0;
 		}
 		.code-area {
 			width: 100%;
