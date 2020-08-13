@@ -8,7 +8,7 @@ $(function(){
 		for(i=0;i<=btnCode.length;i++){
 			if(!btnCode.not('.selected')[i]) {
 				if(btnCode.not('.selected').length == 3) {
-					$('.btn-result').attr('disabled',true);
+					$('.btn-result').addClass('selected').attr('disabled',true);
 					$('main').addClass('full-height-view');
 				}else{
 					$('.btn-result').attr('disabled',false);
