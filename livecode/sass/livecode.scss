@@ -94,13 +94,19 @@ main {
 			.header-html,
 			.header-css,
 			.header-js {
+				display: flex;
 				height: 35px;
 				color: #fff;
+				font-size: 15px;
 				padding: 0 10px;
 				line-height: 36px;
 				background: #2d3340;
-				font-size: 15px;
+				align-items: center;
 				font-family: monospace;
+				justify-content: space-between;
+				.header-setting {
+					cursor: pointer;
+				}
 			}
 			.CodeMirror {
 				height: calc(100% - 35px);
