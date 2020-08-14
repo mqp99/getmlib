@@ -36,9 +36,9 @@
 		<nav></nav>
 	</header>
 	<main>
-		<div class="code-mobile-detech">
+		<div id="code-mobile-detech">
 			<div class="code-setting">
-				<i class="fas fa-cog btn btn-blue-bold btn-sm bd-radius selected"></i>
+				<i class="fas fa-cog btn btn-blue-bold btn-sm bd-radius selected open-setting"></i>
 			</div>
 			<div class="code-select-toggle">
 				<button class="btn btn-code btn-blue-bold btn-sm selected" data-type="html">HTML</button>
@@ -47,34 +47,57 @@
 			</div>
 			<button class="btn btn-result btn-blue-bold btn-sm selected">RESULT</button>
 		</div>
-		<div class="code-area">
-			<div class="code-area-html">
+		<div id="area-code">
+			<div class="area-code-html">
 				<div class="header-html">
 					<span class="header-title">HTML</span>
-					<span class="fas fa-cog header-setting"></span>
+					<span class="fas fa-cog header-setting open-setting menu-item" data-type="html"></span>
 				</div>
 				<textarea id="htmlCode"></textarea>
 			</div>
-			<div class="code-area-css">
+			<div class="area-code-css">
 				<div class="header-css">
 					<span class="header-title">CSS</span>
-					<span class="fas fa-cog header-setting"></span>
+					<span class="fas fa-cog header-setting open-setting menu-item" data-type="css"></span>
 				</div>
 				<textarea id="cssCode"></textarea>
 			</div>
-			<div class="code-area-js">
+			<div class="area-code-js">
 				<div class="header-js">
 					<span class="header-title">JS</span>
-					<span class="fas fa-cog header-setting"></span>
+					<span class="fas fa-cog header-setting open-setting menu-item" data-type="js"></span>
 				</div>
 				<textarea id="jsCode"></textarea>
 			</div>
 		</div>
-		<div class="preview-area">
+		<div id="area-preview">
 			<iframe id="preview-window" frameborder="0"></iframe>
 		</div>
-		<div class="popup-alert">
-			Đã lưu
+		<div id="popup-alert"></div>
+		<div id="popup-setting">
+			<div class="setting">
+				<div class="setting-header">
+					<div class="title">Live Setting</div>
+					<div class="close close-setting"><i class="fal fa-times"></i></div>
+
+				</div>
+				<div class="setting-main">
+					<div class="main-menu">
+						<a href="#" class="menu-item html selected" data-type="html">HTML</a>
+						<a href="#" class="menu-item css" data-type="css">CSS</a>
+						<a href="#" class="menu-item js" data-type="js">JS</a>
+					</div>
+					<div class="main-content html selected">
+						Main HTML
+					</div>
+					<div class="main-content css">
+						Main CSS
+					</div>
+					<div class="main-content js">
+						Main JS
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
 </body>

@@ -1,5 +1,5 @@
 $(function(){
-	$('.code-area-html').addClass('active');
+	$('.area-code-html').addClass('active');
 	$('.btn-code').on('click',function(){
 		var _this = $(this).attr('data-type');
 		$(this).siblings().removeClass('selected');
@@ -20,16 +20,16 @@ $(function(){
 		}
 		switch (_this) {
 			case 'html':
-				$('.code-area-html').addClass('active');
-				$('.code-area-css, .code-area-js').removeClass('active');
+				$('.area-code-html').addClass('active');
+				$('.area-code-css, .area-code-js').removeClass('active');
 				break;
 			case 'css':
-				$('.code-area-css').addClass('active');
-				$('.code-area-html, .code-area-js').removeClass('active');
+				$('.area-code-css').addClass('active');
+				$('.area-code-html, .area-code-js').removeClass('active');
 				break;
 			case 'js':
-				$('.code-area-js').addClass('active');
-				$('.code-area-css, .code-area-html').removeClass('active');
+				$('.area-code-js').addClass('active');
+				$('.area-code-css, .area-code-html').removeClass('active');
 				break;
 			default:
 				alert('s')
@@ -44,6 +44,31 @@ $(function(){
 		}else{
 			//console.log('result on')
 			$('main').removeClass('full-height-code');
+		}
+	})
+	$('.open-setting').on('click',function(){
+		$('#popup-setting').addClass('show-setting');
+	})
+	$('.close-setting').on('click',function(){
+		$('#popup-setting').removeClass('show-setting');
+	})
+	$('.menu-item').on('click',function(){
+		var _this = $(this).attr('data-type');
+		$('.menu-item').siblings().removeClass('selected');
+		$(`.menu-item.${_this}`).toggleClass('selected');
+		switch (_this) {
+			case 'html':
+				$('.main-content.html').addClass('selected');
+				$('.main-content.css, .main-content.js').removeClass('selected');
+				break;
+			case 'css':
+				$('.main-content.css').addClass('selected');
+				$('.main-content.html, .main-content.js').removeClass('selected');
+				break;
+			case 'js':
+				$('.main-content.js').addClass('selected');
+				$('.main-content.css, .main-content.html').removeClass('selected');
+				break;
 		}
 	})
 })
