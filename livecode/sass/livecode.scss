@@ -160,13 +160,13 @@ main {
 		}
 		.code-area {
 			width: 100%;
-			height: 260px;
+			height: 300px;
 			.code-area-html,
 			.code-area-css,
 			.code-area-js {
 				&.active {
 					opacity: 1;
-					height: 260px;
+					height: 300px;
 					visibility: visible;
 				}
 				// border: 1px solid;
@@ -192,6 +192,37 @@ main {
 			width: 100%;
 			background: #fff;
 			z-index: 1111111;
+			height: calc(100% - 350px);
+		}
+	}
+}
+@media (max-width: 767px)
+{
+	header {
+	}
+	main {
+		.code-area {
+			height: 260px;
+			.code-area-html,
+			.code-area-css,
+			.code-area-js {
+				&.active {
+					height: 260px;
+				}
+				.header-html,
+				.header-css,
+				.header-js {
+					display: none;
+				}
+				.CodeMirror {
+					height: 100%;
+				}
+			}
+			.code-area-css,
+			.code-area-js {
+			}
+		}
+		.preview-area {
 			height: calc(100% - 310px);
 		}
 	}

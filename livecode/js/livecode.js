@@ -7,17 +7,15 @@ $(function(){
 		for(i=0;i<=$('.btn-code').length;i++){
 			if(!$('.btn-code').not('.selected')[i]) {
 				if($('.btn-code').not('.selected').length == 2) {
-					console.log('btn on')
+					//console.log('btn on')
 					$('.btn-result').attr('disabled',false);
 					$('main').removeClass('full-height-view');
-					//$('main').removeClass('full-height-code').removeClass('full-height-view');
 				}else{
-					console.log('btn off')
+					//console.log('btn off')
 					$('.btn-result').addClass('selected').attr('disabled',true);
 					$('main').removeClass('full-height-code').addClass('full-height-view');
-					//$('main').addClass('full-height-view').addClass('full-height-code');
 				}
-				console.log($('.btn-code').not('.selected').length)
+				// console.log($('.btn-code').not('.selected').length)
 			}
 		}
 		switch (_this) {
@@ -41,10 +39,10 @@ $(function(){
 	$('.btn-result').on('click',function(){
 		$(this).toggleClass('selected');
 		if($(this).not('.selected').length == 1) {
+			//console.log('result off')
 			$('main').addClass('full-height-code');
-					console.log('result off')
 		}else{
-					console.log('result on')
+			//console.log('result on')
 			$('main').removeClass('full-height-code');
 		}
 	})
