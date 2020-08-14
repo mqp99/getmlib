@@ -1,5 +1,5 @@
 $(function() {
-	var times,autoSave = false;
+	var times,autoSave = true;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -136,8 +136,8 @@ $(function() {
 		// Clear time out alert
 		clearTimeout(times);
 		// Set time out alert
-		$('.popup-alert').html('Đang lưu...').addClass('alert');
-		times = setTimeout(()=>{ $('.popup-alert').html('Đã lưu'); },time);
-		times = setTimeout(()=>{ $('.popup-alert').removeClass('alert'); },time + 500);
+		$('#popup-alert').html('Đang lưu...').addClass('alert');
+		times = setTimeout(()=>{ $('#popup-alert').html('Đã lưu'); },time);
+		times = setTimeout(()=>{ $('#popup-alert').removeClass('alert'); },time + 500);
 	}
 });
