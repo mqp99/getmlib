@@ -1,4 +1,7 @@
 $(function() {
+	var valueDOMHTML = "<!-- HTML here, có thể sử dụng key của SublimeText --> \n";
+	var valueDOMCSS = "/* CSS here */ \n";
+	var valueDOMJS = "/* Chưa thể sử dụng được ! */";
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -38,6 +41,9 @@ $(function() {
     	autoCloseBrackets: true,
 		lineWrapping: true
 	});
+	editorHTML.setValue(valueDOMHTML);
+	editorCSS.setValue(valueDOMCSS);
+	editorJS.setValue(valueDOMJS);
 	editorHTML.on('keypress',function(){
 		CodeMirror.commands.autocomplete(editorHTML);
 	})
@@ -46,7 +52,6 @@ $(function() {
 	})
 	editorHTML.on('change',function(){ showPreview();})
 	editorCSS.on('change',function(){ showPreview(); })
-	editorJS.setValue('/* Chưa thể sử dụng được ! */')
 	//editorJS.on('change',function(){ showPreview(); })
 	function showPreview(){
 		var htmlValue = editorHTML.getValue();
