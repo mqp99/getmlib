@@ -1,5 +1,5 @@
 $(function() {
-	var times;
+	var times,autoSave = false;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -41,14 +41,15 @@ $(function() {
 		lineWrapping: true
 	});
 	/* ============================ 
+		+ CALL FUNCTION
+	============================  */
+	timeoutShowPreview(0,autoSave);
+	/* ============================ 
 		+ SET VALUE CODEMIRROR BEFORE LOAD
 	============================  */
-	var valueDOMHTML = "<!-- HTML here --> \n";
-	var valueDOMCSS = "/* CSS here */ \n";
-	var valueDOMJS = "/* JS here */ \n";
-	editorHTML.setValue(valueDOMHTML);
-	editorCSS.setValue(valueDOMCSS);
-	editorJS.setValue(valueDOMJS);
+	if(autoSave == true) {
+		checkJSONlocalStorage();
+	}
 	/* ============================ 
 		+ Auto complete HTML, CSS, JS
 	============================  */
@@ -58,26 +59,85 @@ $(function() {
 	/* ============================  
 		+ EVENT CHANGE CODEMIRROR
 	============================  */
-	editorHTML.on('change',function(){ timeoutShowPreview(2000) })
-	editorCSS.on('change',function(){ timeoutShowPreview(2000) })
-	editorJS.on('change',function(){ timeoutShowPreview(2000) })
+	editorHTML.on('change',function(){ timeoutShowPreview(2000,autoSave) })
+	editorCSS.on('change',function(){ timeoutShowPreview(2000,autoSave) })
+	editorJS.on('change',function(){ timeoutShowPreview(2000,autoSave) })
 	/* ============================  
 		+ FUNCTION CHANGE CODEMIRROR
 	============================  */
-	function timeoutShowPreview(time) {
+	function timeoutShowPreview(time,autoSave) {
 		// Clear time out inner Preview if change
 		clearTimeout(times);
 		// Set time out inner Preview
-		times = setTimeout(()=>{ showPreview(); },time) 
+		times = setTimeout(()=>{ showPreview(autoSave); },time) 
 	}
-	function showPreview(){
+	function showPreview(autoSave){
+		// if autoSave = true
+		if(autoSave == true) {
+			autoSaveCode(editorHTML.getValue(),editorCSS.getValue(),editorJS.getValue());
+		}
+		// Get value html code
 		var htmlValue = editorHTML.getValue();
+		// Get value css code
 		var cssValue = `<style>${editorCSS.getValue()}</style>`;
+		// Get value js code
 		var jsValue = "<scri"+"pt type='text/javascript'>"+editorJS.getValue()+"</scri"+"pt>";
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
 		frame.write(htmlValue,jsValue);
 		$('head',frame).append(cssValue);
 		frame.close();
+	}
+	/* ============================  
+		+ FUNCTION AUTO SAVE CODEMIRROR
+	============================  */
+	function autoSaveCode(html,css,js) {
+		setJSONlocalStorage('renderCode',{'html': html,'css':css,'js':js},'saveCode');
+		setPopupAlert(1000);
+	}
+	/* ============================  
+		+ FUNCTION LOCALSTORAGE
+	============================  */
+	function checkJSONlocalStorage() {
+		// Trình duyệt hỗ trợ Storage
+		if (typeof(Storage) !== "undefined") {
+			// Get render storage
+		    var renderCode = getJSONlocalStorage('renderCode');
+		    if(renderCode) {
+			    editorHTML.setValue(renderCode.html);
+			    editorCSS.setValue(renderCode.css);
+			    editorJS.setValue(renderCode.js);
+		    }
+		}
+	}
+	function setJSONlocalStorage(key,value,action) {
+		// Check action và thực hiện
+		switch (action) {
+			case 'saveCode':
+				localStorage.setItem(key,JSON.stringify(value))
+				break;
+		}
+	}
+	function getJSONlocalStorage(key) {
+		if(localStorage.getItem(key) !== null) {
+			var getKey = JSON.parse(localStorage.getItem(key));
+			if(getKey !== null){
+				return getKey;
+			}
+		}
+	}
+	function updateJSONlocalStorage() {
+		console.log('updateJSONlocalStorage')
+	}
+	/* ============================  
+		+ FUNCTION SUPPORT
+	============================  */
+	function setPopupAlert(time) {
+		// Clear time out alert
+		clearTimeout(times);
+		// Set time out alert
+		$('.popup-alert').html('Đang lưu...').addClass('alert');
+		times = setTimeout(()=>{ $('.popup-alert').html('Đã lưu'); },time);
+		times = setTimeout(()=>{ $('.popup-alert').removeClass('alert'); },time + 500);
 	}
 });

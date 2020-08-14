@@ -123,6 +123,28 @@ main {
 			height: 100%;
 		}
 	}
+	.popup-alert {
+		&.alert {
+			top: 0;
+			opacity: 1;
+			visibility: visible;
+		}
+		position: fixed;
+		visibility: hidden;
+		opacity: 0;
+		top: -20px;
+		left: 50%;
+		z-index: 999;
+		color: #212020;
+		font-size: 14px;
+		text-align: center;
+		background: #FFC107;
+		transition: all .3s;
+		padding: 0px 15px 2px 15px;
+		transform: translateX(-50%);
+		border-radius: 0 0 .25rem .25rem;
+		box-shadow: 0 0 .5rem .2rem #ffc10745;
+	}
 }
 @media (max-width: 800px)
 {
