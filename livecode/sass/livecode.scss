@@ -129,18 +129,18 @@ main {
 	header {
 	}
 	main {
-		height: calc(100vh - 50px);
+		height: calc(100vh - 60px);
 		flex-direction: row;
 		.code-mobile-detech {
 			display: flex;
 		}
 		&.full-height-code {
 			.code-area {
-				height: calc(100vh - 100px)!important;
+				height: calc(100vh - 110px)!important;
 				.code-area-html,
 				.code-area-css,
 				.code-area-js {
-					height: calc(100vh - 100px)!important;
+					height: calc(100vh - 110px)!important;
 				}
 			}
 			.preview-area {
@@ -157,7 +157,7 @@ main {
 				}
 			}
 			.preview-area {
-				height: calc(100vh - 100px)!important;
+				height: calc(100vh - 110px)!important;
 			}
 		}
 		.code-area {

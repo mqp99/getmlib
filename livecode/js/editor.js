@@ -5,6 +5,7 @@ $(function() {
 	    theme: 'ayu-mirage',
 		mode: "text/html",
    		keyMap: "sublime",
+   		lint: true,
 		lineWrapping: true,
         autoCloseTags: true,
     	autoCloseBrackets: true,
@@ -20,6 +21,7 @@ $(function() {
 	    theme: 'ayu-mirage css',
 		mode: "css",
    		keyMap: "sublime",
+   		lint: true,
 		lineWrapping: true,
     	autoCloseBrackets: true,
 		extraKeys: {
@@ -32,6 +34,7 @@ $(function() {
 	    theme: 'ayu-mirage js',
 		mode: "text/javascript",
    		keyMap: "sublime",
+   		readOnly: 'nocursor',
     	autoCloseBrackets: true,
 		lineWrapping: true
 	});
@@ -43,15 +46,17 @@ $(function() {
 	})
 	editorHTML.on('change',function(){ showPreview();})
 	editorCSS.on('change',function(){ showPreview(); })
-	editorJS.on('change',function(){ showPreview(); })
+	editorJS.setValue('/* Chưa thể sử dụng được ! */')
+	//editorJS.on('change',function(){ showPreview(); })
 	function showPreview(){
 		var htmlValue = editorHTML.getValue();
 		var cssValue = `<style>${editorCSS.getValue()}</style>`;
-		var jsValue = '<scri'+'pt>'+editorJS.getValue()+'</scri'+'pt>';
+		//var jsValue = "<scri"+"pt>"+editorJS.getValue('s')+"</scri"+"pt>";
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(htmlValue,jsValue);
 		frame.close();
-		$('head',frame).html(cssValue);
+		$('head',frame).append(cssValue);
+		$('body',frame).append(htmlValue);
+		//$('body',frame).append(jsValue);
 	}
 });
