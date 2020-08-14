@@ -1,10 +1,10 @@
 header {
-	height: 50px;
+	height: 60px;
 	background: #262626;
 }
 %btnColor {
-	background: #555c6b;
-	border-color: #555c6b;
+	background: #2c303a;
+	border-color: #444857;
 }
 .CodeMirror-vscrollbar {
 	&::-webkit-scrollbar {
@@ -35,6 +35,8 @@ main {
 		.code-setting {
 			i {
 				@extend %btnColor;
+				padding: 5px 7px;
+				background: #444857;//#555c6b;
 			}
 		}
 		.code-select-toggle {
@@ -58,8 +60,8 @@ main {
 					animation: scale .3s 1;
 				}
 				&.selected {
-					background: transparent;//#555c6b;
-					border-top: 2px solid #87929a;
+					background: #444857;//#555c6b;
+					border-top: 2px solid #d5d7de;
 				}
 			}
 		}
@@ -76,21 +78,21 @@ main {
 				animation: scale .3s 1;
 			}
 			&.selected {
-				background: transparent;//#555c6b;
-				border-top: 2px solid #87929a;
+				background: #444857;//#555c6b;
+				border-top: 2px solid #d5d7de;
 			}
 
 		}
 	}
 	.code-area {
 		width: 50%;
-		height: calc(100vh - 50px);
+		height: calc(100vh - 60px);
 		.code-area-html,
 		.code-area-css,
 		.code-area-js {
 			// border: 1px solid;
 			overflow: hidden;
-			height: calc((100vh - 50px) / 3);
+			height: calc((100vh - 60px) / 3);
 			.header-html,
 			.header-css,
 			.header-js {

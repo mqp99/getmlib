@@ -6,9 +6,12 @@ $(function() {
 		mode: "text/html",
    		keyMap: "sublime",
 		lineWrapping: true,
+        autoCloseTags: true,
     	autoCloseBrackets: true,
+	    matchTags: {bothTags: true},
 		extraKeys: {
-			'Ctrl-Space': 'autocomplete'
+			'Ctrl-Space': 'autocomplete',
+			'Ctrl-J': 'toMatchingTag'
 		}
 	});
 	var editorCSS = CodeMirror.fromTextArea($('#cssCode')[0], {
@@ -16,6 +19,7 @@ $(function() {
 	    tabSize:5,
 	    theme: 'ayu-mirage css',
 		mode: "css",
+   		keyMap: "sublime",
 		lineWrapping: true,
     	autoCloseBrackets: true,
 		extraKeys: {
@@ -27,6 +31,7 @@ $(function() {
 	    tabSize:5,
 	    theme: 'ayu-mirage js',
 		mode: "text/javascript",
+   		keyMap: "sublime",
     	autoCloseBrackets: true,
 		lineWrapping: true
 	});
