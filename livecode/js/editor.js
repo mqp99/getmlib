@@ -43,12 +43,17 @@ $(function() {
 	/* ============================ 
 		+ CALL FUNCTION
 	============================  */
-	timeoutShowPreview(0,autoSave);
+	timeoutShowPreview(0,autoSave,pushNoti = false);
 	/* ============================ 
 		+ SET VALUE CODEMIRROR BEFORE LOAD
 	============================  */
 	if(autoSave == true) {
-		checkJSONlocalStorage();
+		setTimeout(()=>{
+			renderCode = getlocalStorage('renderCode');
+			editorHTML.setValue(renderCode.html);
+			editorCSS.setValue(renderCode.css);
+			editorJS.setValue(renderCode.js);
+		},100);
 	}
 	/* ============================ 
 		+ Auto complete HTML, CSS, JS
@@ -59,22 +64,21 @@ $(function() {
 	/* ============================  
 		+ EVENT CHANGE CODEMIRROR
 	============================  */
-	editorHTML.on('change',function(){ timeoutShowPreview(2000,autoSave) })
-	editorCSS.on('change',function(){ timeoutShowPreview(2000,autoSave) })
-	editorJS.on('change',function(){ timeoutShowPreview(2000,autoSave) })
+	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave) })
+	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave) })
+	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave) })
 	/* ============================  
 		+ FUNCTION CHANGE CODEMIRROR
 	============================  */
-	function timeoutShowPreview(time,autoSave) {
+	function timeoutShowPreview(time,autoSave,pushNoti = true) {
 		// Clear time out inner Preview if change
 		clearTimeout(times);
-		// Set time out inner Preview
-		times = setTimeout(()=>{ showPreview(autoSave); },time) 
+		times = setTimeout(()=>{ showPreview(autoSave,pushNoti); },time) 
 	}
-	function showPreview(autoSave){
+	function showPreview(autoSave,pushNoti){
 		// if autoSave = true
 		if(autoSave == true) {
-			autoSaveCode(editorHTML.getValue(),editorCSS.getValue(),editorJS.getValue());
+			autoSaveCode(editorHTML.getValue(),editorCSS.getValue(),editorJS.getValue(),pushNoti);
 		}
 		// Get value html code
 		var htmlValue = editorHTML.getValue();
@@ -91,40 +95,21 @@ $(function() {
 	/* ============================  
 		+ FUNCTION AUTO SAVE CODEMIRROR
 	============================  */
-	function autoSaveCode(html,css,js) {
-		setJSONlocalStorage('renderCode',{'html': html,'css':css,'js':js},'saveCode');
-		setPopupAlert(1000);
+	function autoSaveCode(html,css,js,pushNoti) {
+		setlocalStorage('renderCode',{'html': html,'css':css,'js':js});
+		if(pushNoti) {
+			setPopupAlert(1000);
+		}
 	}
 	/* ============================  
 		+ FUNCTION LOCALSTORAGE
 	============================  */
-	function checkJSONlocalStorage() {
-		// Trình duyệt hỗ trợ Storage
-		if (typeof(Storage) !== "undefined") {
-			// Get render storage
-		    var renderCode = getJSONlocalStorage('renderCode');
-		    if(renderCode) {
-			    editorHTML.setValue(renderCode.html);
-			    editorCSS.setValue(renderCode.css);
-			    editorJS.setValue(renderCode.js);
-		    }
-		}
+	function setlocalStorage(key,value) {
+		localStorage.setItem(key,JSON.stringify(value));
 	}
-	function setJSONlocalStorage(key,value,action) {
-		// Check action và thực hiện
-		switch (action) {
-			case 'saveCode':
-				localStorage.setItem(key,JSON.stringify(value))
-				break;
-		}
-	}
-	function getJSONlocalStorage(key) {
-		if(localStorage.getItem(key) !== null) {
-			var getKey = JSON.parse(localStorage.getItem(key));
-			if(getKey !== null){
-				return getKey;
-			}
-		}
+	function getlocalStorage(key) {
+		var getStorage = JSON.parse(localStorage.getItem(key));
+		return getStorage = (getStorage) ? getStorage : [];
 	}
 	function updateJSONlocalStorage() {
 		console.log('updateJSONlocalStorage')
