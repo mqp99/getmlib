@@ -121,10 +121,27 @@ $(function() {
 		    	_dataExport.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
 			}else{
 				$(this).prop('checked',false)
-				alert('Chưa có dữ liệu để xuất, chế độ xuất chỉ thực hiện khi auto save được bật!')
+				alert('Chưa có dữ liệu để xuất, chế độ xuất chỉ sử dụng được khi lần đầu bật auto save!')
 			}
 		}else{
 			$(this).val('export');
+			_dataExport.html('');
+		}
+	})
+	$('#open-file-import').on('change',function(){
+		_this = $(this).val();
+		_value = $(this).prop('files');
+		_dataExport = $('#data-import');
+		if(_this == 'import') {
+			if(getlocalStorage('renderCode') != '') {
+				$(this).val('importing');
+				_dataExport.append(`<input type="file" id="file-import" value="import">`);
+			}else{
+				$(this).prop('checked',false)
+				alert('Chế độ Import chỉ sử dụng được khi lần đầu bật auto save!')
+			}
+		}else{
+			$(this).val('import');
 			_dataExport.html('');
 		}
 	})
