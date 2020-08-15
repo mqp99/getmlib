@@ -1,4 +1,5 @@
 $(function(){
+	var renderCodeGET = (getlocalStorage('renderCode') != null) ? getlocalStorage('renderCode') : [];
 	$('.area-code-html').addClass('active');
 	$('.btn-code').on('click',function(){
 		var _this = $(this).attr('data-type');
@@ -46,6 +47,23 @@ $(function(){
 			$('main').removeClass('full-height-code');
 		}
 	})
+	$('#open-file-import').on('change',function(){
+		_this = $(this).val();
+		_value = $(this).prop('files');
+		_dataExport = $('#data-import');
+		if(_this == 'import') {
+			if(getlocalStorage('renderCode') != '') {
+				$(this).val('importing');
+				_dataExport.append(`<input type="file" id="file-import" value="import">`);
+			}else{
+				$(this).prop('checked',false)
+				alert('Chế độ Import chỉ nhập vào được khi auto save được bật!')
+			}
+		}else{
+			$(this).val('import');
+			_dataExport.html('');
+		}
+	})
 	$('.open-setting').on('click',function(){
 		$('#popup-setting').addClass('show-setting');
 	})
@@ -75,4 +93,8 @@ $(function(){
 				break;
 		}
 	})
+	function getlocalStorage(key) {
+		var getStorage = JSON.parse(localStorage.getItem(key));
+		return getStorage = (getStorage) ? getStorage : [];
+	}
 })

@@ -115,17 +115,49 @@ $(function() {
 		_this = $(this).val();
 		_id = `${makeid(10)}-${makeid(5)}-${makeid(20)}`;
 		if(_this == 'export') {
-			$(this).val('exporting');
-			dataJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(renderCodeGET));
-	    	_dataExport.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
+			if(getlocalStorage('renderCode') != '') {
+				$(this).val('exporting');
+				dataJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(getlocalStorage('renderCode')));
+		    	_dataExport.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
+			}else{
+				$(this).prop('checked',false)
+				alert('Chưa có dữ liệu để xuất, chế độ xuất chỉ thực hiện khi auto save được bật!')
+			}
 		}else{
 			$(this).val('export');
 			_dataExport.html('');
 		}
 	})
-	$('#file-import').on('change',function(){
-		// code here
+	$(document).on('change','#file-import',function(e){
+		_this = e.target.files[0].name.split('.')[1].toLowerCase();
+		if(_this == 'json') {
+			readFile(e);
+		}else{
+			alert('Vui lòng chọn đúng file JSON của chúng tôi!');
+		}
+		
 	})
+	function processText(text) {
+		response = JSON.parse(text);
+		setlocalStorage('renderCode',response);
+		editorHTML.setValue(response.html);
+		editorCSS.setValue(response.css);
+		editorJS.setValue(response.js);
+		$('#open-file-import').prop('checked',false);
+		$('#data-import').html('');
+	}
+	function readFile(evt) {
+	    var files = evt.target.files;
+	    if (files == null || files.length == 0) return;
+	    var file = files[0];
+	    var reader = new FileReader();
+	    reader.onload = (function (theFile) {
+		    return function (e) {
+		        processText(e.target.result);
+		    };
+	    })(file);
+	    reader.readAsText(file);
+	}
 	function settingPage(autoSave = autoSaveGET) {
 		var obj = {
 			'autoSave': autoSave,
