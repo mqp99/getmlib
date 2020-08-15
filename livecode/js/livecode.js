@@ -49,7 +49,7 @@ $(function(){
 	$('.open-setting').on('click',function(){
 		$('#popup-setting').addClass('show-setting');
 	})
-	$('.close-setting').on('click',function(){
+	$('.close-setting, .popup-overplay').on('click',function(){
 		$('#popup-setting').removeClass('show-setting');
 	})
 	$('.menu-item').on('click',function(){

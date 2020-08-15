@@ -81,7 +81,7 @@ $(function() {
 		// if autoSave = true
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
-			setPopupAlert(1000);
+			setPopupAlert('Đang lưu...','Đã lưu',1000);
 		}
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
@@ -101,12 +101,13 @@ $(function() {
 		if(_this == 'false') {
 			$(this).attr('data-save',true)
 			autoSaveCode();
-			setPopupAlert(1000);
+			setPopupAlert('Đang lưu...','Đã lưu',1000);
 			settingPage(autoSave = true)
 			//console.log('true')
 		}else{
 			$(this).attr('data-save',false)
 			settingPage(autoSave = false)
+			setPopupAlert('Đang tắt...','Đã tắt',1000);
 			//console.log('false')
 		}
 	})
@@ -144,12 +145,12 @@ $(function() {
 	/* ============================  
 		+ FUNCTION SUPPORT
 	============================  */
-	function setPopupAlert(time) {
+	function setPopupAlert(textWait,textSuccess,time) {
 		// Clear time out alert
 		clearTimeout(times);
 		// Set time out alert
-		$('#popup-alert').html('Đang lưu...').addClass('alert');
-		times = setTimeout(()=>{ $('#popup-alert').html('Đã lưu'); },time);
+		$('#popup-alert').html(textWait).addClass('alert');
+		times = setTimeout(()=>{ $('#popup-alert').html(textSuccess); },time);
 		times = setTimeout(()=>{ $('#popup-alert').removeClass('alert'); },time + 500);
 	}
 });
