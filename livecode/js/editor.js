@@ -89,8 +89,7 @@ $(function() {
 		var jsValue = "<scri"+"pt type='text/javascript'>"+editorJS.getValue()+"</scri"+"pt>";
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(htmlValue,jsValue);
-		$('head',frame).append(cssValue);
+		frame.write(cssValue,htmlValue,jsValue);
 		frame.close();
 	}
 	/* ============================  
@@ -111,6 +110,13 @@ $(function() {
 			//console.log('false')
 		}
 	})
+	function settingPage(autoSave = autoSaveGET) {
+		var obj = {
+			'autoSave': autoSave,
+			'autoFormat': false,
+		}
+		setlocalStorage('settingPage',obj);
+	}
 	function autoSaveCode(html,css,js,pushNoti) {
 		var html = editorHTML.getValue();
 		var css = editorCSS.getValue();
@@ -121,13 +127,6 @@ $(function() {
 			'js': js,
 		}
 		setlocalStorage('renderCode',obj);
-	}
-	function settingPage(autoSave = autoSaveGET) {
-		var obj = {
-			'autoSave': autoSave,
-			'autoFormat': false,
-		}
-		setlocalStorage('settingPage',obj);
 	}
 	/* ============================  
 		+ FUNCTION LOCALSTORAGE

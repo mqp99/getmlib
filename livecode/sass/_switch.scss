@@ -1,7 +1,7 @@
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 54px !important;
+	width: 44px !important;
 	height: 24px;
 
 	input[type="checkbox"] {
@@ -18,7 +18,7 @@
 	}
 
 	input[type="checkbox"]:checked + .slider:before {
-		transform: translateX(22px);
+		transform: translateX(14px);
 	}
 	.slider {
 		position: absolute;
