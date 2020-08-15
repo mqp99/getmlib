@@ -110,6 +110,22 @@ $(function() {
 			//console.log('false')
 		}
 	})
+	$('#file-export').on('change',function(){
+		_dataExport = $('#data-export');
+		_this = $(this).val();
+		_id = `${makeid(10)}-${makeid(5)}-${makeid(20)}`;
+		if(_this == 'export') {
+			$(this).val('exporting');
+			dataJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(renderCodeGET));
+	    	_dataExport.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
+		}else{
+			$(this).val('export');
+			_dataExport.html('');
+		}
+	})
+	$('#file-import').on('change',function(){
+		// code here
+	})
 	function settingPage(autoSave = autoSaveGET) {
 		var obj = {
 			'autoSave': autoSave,
@@ -151,5 +167,14 @@ $(function() {
 		$('#popup-alert').html(textWait).addClass('alert');
 		times = setTimeout(()=>{ $('#popup-alert').html(textSuccess); },time);
 		times = setTimeout(()=>{ $('#popup-alert').removeClass('alert'); },time + 500);
+	}
+	function makeid(length) {
+	   	var result           = '';
+	   	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	   	var charactersLength = characters.length;
+	   	for ( var i = 0; i < length; i++ ) {
+	    	result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	   }
+	   return result;
 	}
 });
