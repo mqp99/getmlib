@@ -61,7 +61,7 @@ $(function() {
 		+ Auto complete HTML, CSS, JS
 	============================  */
 	editorHTML.on('keypress',function(){ /*	CodeMirror.commands.autocomplete(editorHTML); */ })
-	editorCSS.on('keypress',function(){ /* CodeMirror.commands.autocomplete(editorCSS); */ })
+	editorCSS.on('keypress',function(){ CodeMirror.commands.autocomplete(editorCSS); })
 	editorJS.on('keypress',function(){  CodeMirror.commands.autocomplete(editorJS); })
 	/* ============================  
 		+ EVENT CHANGE CODEMIRROR
