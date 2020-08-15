@@ -9,7 +9,7 @@ $(function() {
 	    tabSize:5,
 		mode: "text/html",
    		keyMap: "sublime",
-	    theme: 'ayu-mirage',
+	    theme: 'material-darker',
    		lint: true,
 		lineWrapping: true,
         autoCloseTags: true,
@@ -25,7 +25,7 @@ $(function() {
 	    tabSize:5,
 		mode: "css",
    		keyMap: "sublime",
-	    theme: 'ayu-mirage css',
+	    theme: 'material-darker css',
    		lint: true,
 		lineWrapping: true,
     	autoCloseBrackets: true,
@@ -37,7 +37,7 @@ $(function() {
 		lineNumbers: true,
 	    tabSize:5,
    		keyMap: "sublime",
-	    theme: 'ayu-mirage js',
+	    theme: 'material-darker js',
 		mode: "text/javascript",
    		lint: true,
    		//readOnly: 'nocursor',
@@ -48,7 +48,6 @@ $(function() {
 		+ SET VALUE CODEMIRROR BEFORE LOAD
 	============================  */
 	settingPage();
-	console.log(autoSaveGET);
 	timeoutShowPreview(0,autoSave,!pushNoti);
 	if(autoSave == true) {
 		$('#auto-save').attr('data-save',true).attr('checked',true);
@@ -80,19 +79,17 @@ $(function() {
 	}
 	function showPreview(autoSave,pushNoti){
 		// if autoSave = true
-		var html = editorHTML.getValue();
-		var css = editorCSS.getValue();
-		var js = editorJS.getValue();
 		if(autoSave == true && pushNoti == true) {
-			autoSaveCode(html,css,js);
+			autoSaveCode();
 			setPopupAlert(1000);
 		}
 		// Get value css code
-		var cssValue = `<style>${css}</style>`;
-		var jsValue = "<scri"+"pt type='text/javascript'>"+js+"</scri"+"pt>";
+		var htmlValue = editorHTML.getValue();
+		var cssValue = `<style>${editorCSS.getValue()}</style>`;
+		var jsValue = "<scri"+"pt type='text/javascript'>"+editorJS.getValue()+"</scri"+"pt>";
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(html,jsValue);
+		frame.write(htmlValue,jsValue);
 		$('head',frame).append(cssValue);
 		frame.close();
 	}
@@ -103,15 +100,20 @@ $(function() {
 		_this = $(this).attr('data-save');
 		if(_this == 'false') {
 			$(this).attr('data-save',true)
+			autoSaveCode();
+			setPopupAlert(1000);
 			settingPage(autoSave = true)
-			console.log('true')
+			//console.log('true')
 		}else{
 			$(this).attr('data-save',false)
 			settingPage(autoSave = false)
-			console.log('false')
+			//console.log('false')
 		}
 	})
 	function autoSaveCode(html,css,js,pushNoti) {
+		var html = editorHTML.getValue();
+		var css = editorCSS.getValue();
+		var js = editorJS.getValue();
 		var obj = {
 			'html': html,
 			'css': css,
