@@ -1,5 +1,9 @@
 $(function() {
-	var times,autoSave = true;
+	var settingPageGET = (getlocalStorage('settingPage') != null) ? getlocalStorage('settingPage') : [];
+	var renderCodeGET = (getlocalStorage('renderCode') != null) ? getlocalStorage('renderCode') : [];
+	autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
+	autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
+	var times,autoSave = autoSaveGET, pushNoti = true;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -41,19 +45,18 @@ $(function() {
 		lineWrapping: true
 	});
 	/* ============================ 
-		+ CALL FUNCTION
-	============================  */
-	timeoutShowPreview(0,autoSave,pushNoti = false);
-	/* ============================ 
 		+ SET VALUE CODEMIRROR BEFORE LOAD
 	============================  */
+	settingPage();
+	console.log(autoSaveGET);
+	timeoutShowPreview(0,autoSave,!pushNoti);
 	if(autoSave == true) {
-		setTimeout(()=>{
-			renderCode = getlocalStorage('renderCode');
-			editorHTML.setValue(renderCode.html);
-			editorCSS.setValue(renderCode.css);
-			editorJS.setValue(renderCode.js);
-		},100);
+		$('#auto-save').attr('data-save',true).attr('checked',true);
+		if(renderCodeGET != '') {
+			editorHTML.setValue(renderCodeGET.html);
+			editorCSS.setValue(renderCodeGET.css);
+			editorJS.setValue(renderCodeGET.js);
+		}
 	}
 	/* ============================ 
 		+ Auto complete HTML, CSS, JS
@@ -64,42 +67,64 @@ $(function() {
 	/* ============================  
 		+ EVENT CHANGE CODEMIRROR
 	============================  */
-	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave) })
-	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave) })
-	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave) })
+	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
+	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
+	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
 	/* ============================  
 		+ FUNCTION CHANGE CODEMIRROR
 	============================  */
-	function timeoutShowPreview(time,autoSave,pushNoti = true) {
+	function timeoutShowPreview(time,autoSave,pushNoti) {
 		// Clear time out inner Preview if change
 		clearTimeout(times);
-		times = setTimeout(()=>{ showPreview(autoSave,pushNoti); },time) 
+		times = setTimeout(()=>{ showPreview(autoSave,pushNoti); },time);
 	}
 	function showPreview(autoSave,pushNoti){
 		// if autoSave = true
-		if(autoSave == true) {
-			autoSaveCode(editorHTML.getValue(),editorCSS.getValue(),editorJS.getValue(),pushNoti);
+		var html = editorHTML.getValue();
+		var css = editorCSS.getValue();
+		var js = editorJS.getValue();
+		if(autoSave == true && pushNoti == true) {
+			autoSaveCode(html,css,js);
+			setPopupAlert(1000);
 		}
-		// Get value html code
-		var htmlValue = editorHTML.getValue();
 		// Get value css code
-		var cssValue = `<style>${editorCSS.getValue()}</style>`;
-		// Get value js code
-		var jsValue = "<scri"+"pt type='text/javascript'>"+editorJS.getValue()+"</scri"+"pt>";
+		var cssValue = `<style>${css}</style>`;
+		var jsValue = "<scri"+"pt type='text/javascript'>"+js+"</scri"+"pt>";
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(htmlValue,jsValue);
+		frame.write(html,jsValue);
 		$('head',frame).append(cssValue);
 		frame.close();
 	}
 	/* ============================  
 		+ FUNCTION AUTO SAVE CODEMIRROR
 	============================  */
-	function autoSaveCode(html,css,js,pushNoti) {
-		setlocalStorage('renderCode',{'html': html,'css':css,'js':js});
-		if(pushNoti) {
-			setPopupAlert(1000);
+	$('#auto-save').on('change',function(){
+		_this = $(this).attr('data-save');
+		if(_this == 'false') {
+			$(this).attr('data-save',true)
+			settingPage(autoSave = true)
+			console.log('true')
+		}else{
+			$(this).attr('data-save',false)
+			settingPage(autoSave = false)
+			console.log('false')
 		}
+	})
+	function autoSaveCode(html,css,js,pushNoti) {
+		var obj = {
+			'html': html,
+			'css': css,
+			'js': js,
+		}
+		setlocalStorage('renderCode',obj);
+	}
+	function settingPage(autoSave = autoSaveGET) {
+		var obj = {
+			'autoSave': autoSave,
+			'autoFormat': false,
+		}
+		setlocalStorage('settingPage',obj);
 	}
 	/* ============================  
 		+ FUNCTION LOCALSTORAGE
