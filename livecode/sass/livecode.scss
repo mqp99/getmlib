@@ -253,6 +253,8 @@ main {
 						div.title {
 							color: #c7c7c7;
 							width: 100%;
+							display: flex;
+  							flex-direction: column;
 							#data-export a{
 								color: #3399ff!important;
 							}

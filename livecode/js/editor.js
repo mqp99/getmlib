@@ -156,12 +156,17 @@ $(function() {
 	})
 	function processText(text) {
 		response = JSON.parse(text);
-		setlocalStorage('renderCode',response);
-		editorHTML.setValue(response.html);
-		editorCSS.setValue(response.css);
-		editorJS.setValue(response.js);
-		$('#open-file-import').prop('checked',false);
-		$('#data-import').html('');
+		obj = Object.keys(response);
+		if(obj[0] == 'html' && obj[1] == 'css' && obj[2] == 'js') {
+			setlocalStorage('renderCode',response);
+			editorHTML.setValue(response.html);
+			editorCSS.setValue(response.css);
+			editorJS.setValue(response.js);
+			$('#open-file-import').val('import').prop('checked',false);
+			$('#data-import').html('');
+		}else{
+			alert('Xin lỗi, có vẻ file JSON bạn chọn không phải định dạng của chúng tôi!')
+		}
 	}
 	function readFile(evt) {
 	    var files = evt.target.files;
