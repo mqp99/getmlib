@@ -3,7 +3,7 @@ $(function() {
 	var renderCodeGET = (storageGET('renderCode') != null) ? storageGET('renderCode') : [];
 	var autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
 	var autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
-	// var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
+	var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
 	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
 	var times,autoSave = autoSaveGET, pushNoti = true;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
