@@ -83,9 +83,9 @@ $(function() {
 		var jsValue = `<script type=\"text/javascript\">${editorJS.getValue()}</script>`;
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(cssValue,htmlValue);
-		$('head',frame).append(`<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js\"></script>`);
-		setTimeout(()=>{$('body',frame).append(jsValue)},500);
+		frame.write(cssValue,htmlValue,jsValue);
+		//$('head',frame).append(`<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>`);
+		//setTimeout(()=>{$('body',frame).append()},500);
 		frame.close();
 	}
 	$(document).on('change','#auto-save',function(){
