@@ -3,6 +3,7 @@ $(function() {
 	var renderCodeGET = (storageGET('renderCode') != null) ? storageGET('renderCode') : [];
 	var autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
 	var autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
+	var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
 	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
 	var times,autoSave = autoSaveGET, pushNoti = true;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
@@ -79,10 +80,12 @@ $(function() {
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
 		var cssValue = `<style>${editorCSS.getValue()}</style>`;
-		var jsValue = "<scri"+"pt type='text/javascript'>"+editorJS.getValue()+"</scri"+"pt>";
+		var jsValue = `<script type=\"text/javascript\">${editorJS.getValue()}</script>`;
 		var frame = $('#preview-window')[0].contentWindow.document;
 		frame.open();
-		frame.write(cssValue,htmlValue,jsValue);
+		frame.write(cssValue,htmlValue);
+		$('head',frame).append(`<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js\"></script>`);
+		setTimeout(()=>{$('body',frame).append(jsValue)},500);
 		frame.close();
 	}
 	$(document).on('change','#auto-save',function(){
@@ -101,6 +104,16 @@ $(function() {
 		}
 	})
 	/* ============================ MORE ============================  */
+	$(document).on('change','#use-library',function(){
+		_this = $(this).attr('data-lib');
+		if(_this == 'jquery') {
+			console.log('use')
+			$(this).attr('data-lib','use-jquery')
+		}else{
+			console.log('not use')
+			$(this).attr('data-lib','jquery')
+		}
+	})
 	$(document).on('change','#file-export',function(){
 		_this = $(this).val();
 		_id = `${createRandom(10)}-${createRandom(5)}-${createRandom(20)}`;
@@ -166,10 +179,11 @@ $(function() {
 		}
 	}
 	/* ============================ FUNCTION SETTING PAGE ============================  */
-	function settingPage(autoSave = autoSaveGET) {
+	function settingPage(autoSave = autoSaveGET,useLibraryJS = useLibraryJSGET) {
 		var obj = {
 			'autoSave': autoSave,
 			'autoFormat': false,
+			'useLibraryJS': useLibraryJSGET
 		}
 		storageSET('settingPage',obj);
 	}
