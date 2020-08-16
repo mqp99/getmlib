@@ -1,8 +1,9 @@
 $(function() {
-	var settingPageGET = (getlocalStorage('settingPage') != null) ? getlocalStorage('settingPage') : [];
-	var renderCodeGET = (getlocalStorage('renderCode') != null) ? getlocalStorage('renderCode') : [];
-	autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
-	autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
+	var settingPageGET = (storageGET('settingPage') != null) ? storageGET('settingPage') : [];
+	var renderCodeGET = (storageGET('renderCode') != null) ? storageGET('renderCode') : [];
+	var autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
+	var autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
+	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
 	var times,autoSave = autoSaveGET, pushNoti = true;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
@@ -44,9 +45,7 @@ $(function() {
     	autoCloseBrackets: true,
 		lineWrapping: true
 	});
-	/* ============================ 
-		+ SET VALUE CODEMIRROR BEFORE LOAD
-	============================  */
+	/* ============================ SET VALUE CODEMIRROR BEFORE LOAD ============================  */
 	settingPage();
 	timeoutShowPreview(0,autoSave,!pushNoti);
 	if(autoSave == true) {
@@ -57,21 +56,15 @@ $(function() {
 			editorJS.setValue(renderCodeGET.js);
 		}
 	}
-	/* ============================ 
-		+ Auto complete HTML, CSS, JS
-	============================  */
+	/* ============================  Auto complete HTML, CSS, JS ============================  */
 	editorHTML.on('keypress',function(){ /*	CodeMirror.commands.autocomplete(editorHTML); */ })
 	editorCSS.on('keypress',function(){ CodeMirror.commands.autocomplete(editorCSS); })
 	editorJS.on('keypress',function(){  CodeMirror.commands.autocomplete(editorJS); })
-	/* ============================  
-		+ EVENT CHANGE CODEMIRROR
-	============================  */
+	/* ============================   EVENT CHANGE CODEMIRROR ============================  */
 	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
 	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
 	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
-	/* ============================  
-		+ FUNCTION CHANGE CODEMIRROR
-	============================  */
+	/* ============================ FUNCTION CHANGE CODEMIRROR ============================  */
 	function timeoutShowPreview(time,autoSave,pushNoti) {
 		// Clear time out inner Preview if change
 		clearTimeout(times);
@@ -81,7 +74,7 @@ $(function() {
 		// if autoSave = true
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
-			setPopupAlert('Đang lưu...','Đã lưu',1000);
+			alertPopup('Đang lưu...','Đã lưu',1000);
 		}
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
@@ -92,82 +85,60 @@ $(function() {
 		frame.write(cssValue,htmlValue,jsValue);
 		frame.close();
 	}
-	/* ============================  
-		+ FUNCTION AUTO SAVE CODEMIRROR
-	============================  */
-	$('#auto-save').on('change',function(){
+	$(document).on('change','#auto-save',function(){
 		_this = $(this).attr('data-save');
 		if(_this == 'false') {
 			$(this).attr('data-save',true)
 			autoSaveCode();
-			setPopupAlert('Đang lưu...','Đã lưu',1000);
+			alertPopup('Đang lưu...','Đã lưu',1000);
 			settingPage(autoSave = true)
 			//console.log('true')
 		}else{
 			$(this).attr('data-save',false)
 			settingPage(autoSave = false)
-			setPopupAlert('Đang tắt...','Đã tắt',1000);
+			alertPopup('Đang tắt...','Đã tắt',1000);
 			//console.log('false')
 		}
 	})
-	$('#file-export').on('change',function(){
-		_dataExport = $('#data-export');
+	/* ============================ MORE ============================  */
+	$(document).on('change','#file-export',function(){
 		_this = $(this).val();
-		_id = `${makeid(10)}-${makeid(5)}-${makeid(20)}`;
+		_id = `${createRandom(10)}-${createRandom(5)}-${createRandom(20)}`;
 		if(_this == 'export') {
-			if(getlocalStorage('renderCode') != '') {
+			if(storageGET('renderCode') != '') {
 				$(this).val('exporting');
-				dataJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(getlocalStorage('renderCode')));
-		    	_dataExport.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
+				dataJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageGET('renderCode')));
+		    	dataExport__ID.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
 			}else{
 				$(this).prop('checked',false)
-				alert('Chưa có dữ liệu để xuất, chế độ xuất chỉ sử dụng được khi lần đầu bật auto save!')
+				alertPopup('Chưa có dữ liệu để xuất, chế độ xuất chỉ sử dụng được khi lần đầu bật auto save!','Sorry...!',5000);
 			}
 		}else{
 			$(this).val('export');
-			_dataExport.html('');
+			dataExport__ID.html('');
 		}
 	})
-	$('#open-file-import').on('change',function(){
+	$(document).on('change','#open-file-import',function(){
 		_this = $(this).val();
 		_value = $(this).prop('files');
-		_dataExport = $('#data-import');
 		if(_this == 'import') {
-			if(getlocalStorage('renderCode') != '') {
+			if(storageGET('renderCode') != '') {
 				$(this).val('importing');
-				_dataExport.append(`<input type="file" id="file-import" value="import">`);
+				dataImport__ID.append(`<input type="file" id="file-import" value="import">`);
 			}else{
-				$(this).prop('checked',false)
-				alert('Chế độ Import chỉ sử dụng được khi lần đầu bật auto save!')
+				$(this).prop('checked',false);
+				alertPopup('Chế độ Import chỉ sử dụng được khi lần đầu bật auto save!','Sorry...!',5000);
 			}
 		}else{
 			$(this).val('import');
-			_dataExport.html('');
+			dataImport__ID.html('');
 		}
 	})
 	$(document).on('change','#file-import',function(e){
 		_this = e.target.files[0].name.split('.')[1].toLowerCase();
-		if(_this == 'json') {
-			readFile(e);
-		}else{
-			alert('Vui lòng chọn đúng file JSON của chúng tôi!');
-		}
-		
+		return (_this == 'json') ? readFile(e) : alertPopup('Vui lòng chọn đúng file JSON của chúng tôi!','Sorry...!',5000);
 	})
-	function processText(text) {
-		response = JSON.parse(text);
-		obj = Object.keys(response);
-		if(obj[0] == 'html' && obj[1] == 'css' && obj[2] == 'js') {
-			setlocalStorage('renderCode',response);
-			editorHTML.setValue(response.html);
-			editorCSS.setValue(response.css);
-			editorJS.setValue(response.js);
-			$('#open-file-import').val('import').prop('checked',false);
-			$('#data-import').html('');
-		}else{
-			alert('Xin lỗi, có vẻ file JSON bạn chọn không phải định dạng của chúng tôi!')
-		}
-	}
+	/* ============================ FUNCTION READ FILE && CONTENT ============================  */
 	function readFile(evt) {
 	    var files = evt.target.files;
 	    if (files == null || files.length == 0) return;
@@ -175,18 +146,34 @@ $(function() {
 	    var reader = new FileReader();
 	    reader.onload = (function (theFile) {
 		    return function (e) {
-		        processText(e.target.result);
+		        readFileContent(e.target.result);
 		    };
 	    })(file);
 	    reader.readAsText(file);
 	}
+	function readFileContent(text) {
+		var response = JSON.parse(text);
+		var obj = Object.keys(response);
+		if(obj[0] == 'html' && obj[1] == 'css' && obj[2] == 'js') {
+			storageSET('renderCode',response);
+			editorHTML.setValue(response.html);
+			editorCSS.setValue(response.css);
+			editorJS.setValue(response.js);
+			openDataImport__ID.val('import').prop('checked',false);
+			dataImport__ID.html('');
+		}else{
+			alertPopup('Không phải file chúng tôi!','Sorry...!',2000);
+		}
+	}
+	/* ============================ FUNCTION SETTING PAGE ============================  */
 	function settingPage(autoSave = autoSaveGET) {
 		var obj = {
 			'autoSave': autoSave,
 			'autoFormat': false,
 		}
-		setlocalStorage('settingPage',obj);
+		storageSET('settingPage',obj);
 	}
+	/* ============================ FUNCTION AUTO SAVE CODEMIRROR ============================  */
 	function autoSaveCode(html,css,js,pushNoti) {
 		var html = editorHTML.getValue();
 		var css = editorCSS.getValue();
@@ -196,33 +183,29 @@ $(function() {
 			'css': css,
 			'js': js,
 		}
-		setlocalStorage('renderCode',obj);
+		storageSET('renderCode',obj);
 	}
-	/* ============================  
-		+ FUNCTION LOCALSTORAGE
-	============================  */
-	function setlocalStorage(key,value) {
+	/* ============================ FUNCTION LOCALSTORAGE ============================  */
+	function storageSET(key,value) {
 		localStorage.setItem(key,JSON.stringify(value));
 	}
-	function getlocalStorage(key) {
+	function storageGET(key) {
 		var getStorage = JSON.parse(localStorage.getItem(key));
 		return getStorage = (getStorage) ? getStorage : [];
 	}
-	function updateJSONlocalStorage() {
-		console.log('updateJSONlocalStorage')
+	function storageUPDATE() {
+		console.log('storageUPDATE')
 	}
-	/* ============================  
-		+ FUNCTION SUPPORT
-	============================  */
-	function setPopupAlert(textWait,textSuccess,time) {
+	/* ============================ FUNCTION SUPPORT ============================  */
+	alertPopup = (textWait,textSuccess,time) => {
 		// Clear time out alert
 		clearTimeout(times);
 		// Set time out alert
-		$('#popup-alert').html(textWait).addClass('alert');
-		times = setTimeout(()=>{ $('#popup-alert').html(textSuccess); },time);
-		times = setTimeout(()=>{ $('#popup-alert').removeClass('alert'); },time + 500);
+		popupAlert__ID.html(textWait).addClass('alert');
+		times = setTimeout(()=>{ popupAlert__ID.html(textSuccess); },time);
+		times = setTimeout(()=>{ popupAlert__ID.removeClass('alert'); },time + 1000);
 	}
-	function makeid(length) {
+	createRandom = (length) => {
 	   	var result           = '';
 	   	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	   	var charactersLength = characters.length;
