@@ -10,6 +10,7 @@ $(function() {
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
+	    indentUnit: 3,
 		mode: "text/xml",
    		keyMap: "sublime",
    		profile: 'xhtml',
@@ -28,11 +29,11 @@ $(function() {
 	var editorCSS = CodeMirror.fromTextArea($('#cssCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
+	    indentUnit: 4,
 		mode: "css",
    		keyMap: "sublime",
    		profile: 'css',
 	    theme: 'material-darker css',
-   		lint: true,
 		lineWrapping: true,
     	autoCloseBrackets: true,
 		extraKeys: {
@@ -43,6 +44,7 @@ $(function() {
 	var editorJS = CodeMirror.fromTextArea($('#jsCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
+	    indentUnit: 3,
    		keyMap: "sublime",
 	    theme: 'material-darker js',
 		mode: "text/javascript",
