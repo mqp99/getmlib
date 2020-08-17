@@ -361,6 +361,9 @@ main {
 	header {
 	}
 	main {
+		height: 100%;
+		box-sizing: border-box;
+		border: 1px solid red;
 		#area-code {
 			height: 260px;
 			.area-code-html,
@@ -384,6 +387,7 @@ main {
 		}
 		#area-preview {
 			height: calc(100% - 310px);
+			border: 1px solid blue;
 		}
 	}
 }
