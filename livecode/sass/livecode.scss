@@ -1,6 +1,8 @@
-html,body {
-	height: 100%;
-	overflow: hidden;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 header {
 	height: 0px;
@@ -26,6 +28,8 @@ header {
 }
 [data-zoom='1'] iframe {
 	transform: scale(1);
+	width: 100%!important;
+	height: 100%!important;
 }
 %btnColor {
 	background: #2c303a;
@@ -287,6 +291,7 @@ main {
 					}
 					div {
 						display: flex;
+						align-items: center;
 						margin-bottom: 3px;
 						 div > .btn-sm {
 							padding: 2px 7px;
@@ -412,11 +417,11 @@ main {
 		}
 		&.full-height-code {
 			#area-code {
-				height: calc(100% - 50px)!important;
+				height: calc(100% - 90px)!important;
 				.area-code-html,
 				.area-code-css,
 				.area-code-js {
-					height: calc(100% - 50px)!important;
+					height: calc(100% - 90px)!important;
 				}
 			}
 			#area-preview {
@@ -433,7 +438,7 @@ main {
 				}
 			}
 			#area-preview {
-				height: calc(100% - 50px)!important;
+				height: calc(100% - 90px)!important;
 			}
 		}
 		#area-code {

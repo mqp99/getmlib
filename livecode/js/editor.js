@@ -6,6 +6,7 @@ $(function() {
 	var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
 	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
 	var times,alertTime,autoSave = autoSaveGET, pushNoti = true;
+	(renderCodeGET == '') ? storageSET('renderCode',{'html':'','css':'','js':''}) : [] ;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -52,7 +53,6 @@ $(function() {
 	emmetCodeMirror(editorCSS);
 	/* ============================ SET VALUE CODEMIRROR BEFORE LOAD ============================  */
 	settingPage();
-	alertProcessing(0);
 	timeoutShowPreview(0,autoSave,!pushNoti);
 	if(autoSave == true) {
 		$('#auto-save').attr('data-save',true).attr('checked',true);
@@ -67,13 +67,12 @@ $(function() {
 	editorCSS.on('keypress',function(){ CodeMirror.commands.autocomplete(editorCSS); })
 	editorJS.on('keypress',function(){  CodeMirror.commands.autocomplete(editorJS); })
 	/* ============================   EVENT CHANGE CODEMIRROR ============================  */
-	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(1000); })
-	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(1000); })
-	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(1000); })
+	editorHTML.on('change',function(){ timeoutShowPreview(1000,autoSave,pushNoti); })
+	editorCSS.on('change',function(){ timeoutShowPreview(1000,autoSave,pushNoti); })
+	editorJS.on('change',function(){ timeoutShowPreview(1000,autoSave,pushNoti); })
 	/* ============================ FUNCTION CHANGE CODEMIRROR ============================  */
 	function timeoutShowPreview(time,autoSave,pushNoti) {
 		// Clear time out inner Preview if change
-		
 		clearTimeout(times);
 		times = setTimeout(()=>{ showPreview(autoSave,pushNoti); },time);
 	}
@@ -82,11 +81,12 @@ $(function() {
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
 		}
+		alertProcessing(1000);
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
-		var cssValue = `<style>${editorCSS.getValue()}</style>`;
+		var cssValue = `<style type="text/css">${editorCSS.getValue()}</style>`;
 		var jsValue = `<script type=\"text/javascript\">${editorJS.getValue()}</script>`;
-		var frame = $('#preview-window')[0].contentWindow.document;
+		var frame = $('#preview-window').contents()[0];
 		frame.open();
 		frame.write(cssValue,htmlValue,jsValue);
 		//$('head',frame).append(`<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>`);
@@ -122,14 +122,15 @@ $(function() {
 	$(document).on('change','#file-export',function(){
 		_this = $(this).val();
 		_id = `${createRandom(10)}-${createRandom(5)}-${createRandom(20)}`;
+		let obj = Object.values(storageGET('renderCode'));
 		if(_this == 'export') {
-			if(storageGET('renderCode') != '') {
+			if(obj[0].trim() != '' || obj[1].trim() != '' || obj[2].trim() != '') {
 				$(this).val('exporting');
 				dataJSON = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageGET('renderCode')));
 		    	dataExport__ID.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
 			}else{
-				$(this).prop('checked',false)
-				alertPopup('Chưa có dữ liệu để xuất, chế độ xuất chỉ sử dụng được khi lần đầu bật auto save!','Sorry...!',5000);
+				$(this).prop('checked',false);
+				alertPopup('Phải bật auto save và có nội dụng!','Sorry...!',3000);
 			}
 		}else{
 			$(this).val('export');
@@ -143,9 +144,6 @@ $(function() {
 			if(storageGET('renderCode') != '') {
 				$(this).val('importing');
 				dataImport__ID.append(`<input type="file" id="file-import" value="import">`);
-			}else{
-				$(this).prop('checked',false);
-				alertPopup('Chế độ Import chỉ sử dụng được khi lần đầu bật auto save!','Sorry...!',5000);
 			}
 		}else{
 			$(this).val('import');
@@ -154,7 +152,7 @@ $(function() {
 	})
 	$(document).on('change','#file-import',function(e){
 		_this = e.target.files[0].name.split('.')[1].toLowerCase();
-		return (_this == 'json') ? readFile(e) : alertPopup('Vui lòng chọn đúng file JSON của chúng tôi!','Sorry...!',5000);
+		return (_this == 'json') ? readFile(e) : alertPopup('Vui lòng chọn đúng file JSON của chúng tôi!','Sorry...!',3000);
 	})
 	/* ============================ FUNCTION READ FILE && CONTENT ============================  */
 	function readFile(evt) {
@@ -163,9 +161,7 @@ $(function() {
 	    var file = files[0];
 	    var reader = new FileReader();
 	    reader.onload = (function (theFile) {
-		    return function (e) {
-		        readFileContent(e.target.result);
-		    };
+		    return function (e) { readFileContent(e.target.result); };
 	    })(file);
 	    reader.readAsText(file);
 	}
@@ -179,6 +175,8 @@ $(function() {
 			editorJS.setValue(response.js);
 			openDataImport__ID.val('import').prop('checked',false);
 			dataImport__ID.html('');
+			settingPage(autoSave = true);
+			$('#auto-save').attr('data-save',true).prop('checked',true);
 		}else{
 			alertPopup('Không phải file chúng tôi!','Sorry...!',2000);
 		}
