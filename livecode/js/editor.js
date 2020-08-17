@@ -66,12 +66,13 @@ $(function() {
 	editorCSS.on('keypress',function(){ CodeMirror.commands.autocomplete(editorCSS); })
 	editorJS.on('keypress',function(){  CodeMirror.commands.autocomplete(editorJS); })
 	/* ============================   EVENT CHANGE CODEMIRROR ============================  */
-	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
-	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
-	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti) })
+	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(); })
+	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(); })
+	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(); })
 	/* ============================ FUNCTION CHANGE CODEMIRROR ============================  */
 	function timeoutShowPreview(time,autoSave,pushNoti) {
 		// Clear time out inner Preview if change
+		
 		clearTimeout(times);
 		times = setTimeout(()=>{ showPreview(autoSave,pushNoti); },time);
 	}
@@ -79,7 +80,6 @@ $(function() {
 		// if autoSave = true
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
-			alertProcessing();
 		}
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
@@ -225,17 +225,15 @@ $(function() {
 	}
 	alertProcessing = () => {
 		clearTimeout(alertTime);
-		$('.menu-right .alert-processing').html(
-			`<label>Processing preview...</label>`
-		);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html(
-				`<label>Processed preview...</label>`
-			);
-		},1500);
+			$('.menu-right .alert-processing').html('<label>Processing preview...</label>');
+		},1000);
+		alertTime = setTimeout(()=>{
+			$('.menu-right .alert-processing').html('<label>Processed preview</label>');
+		},2000);
 		alertTime = setTimeout(()=>{
 			$('.menu-right .alert-processing').html('<label>Status</label>');
-		},2500);
+		},3000);
 	}
 	createRandom = (length) => {
 	   	var result           = '';
