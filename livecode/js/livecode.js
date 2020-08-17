@@ -46,6 +46,9 @@ $(function(){
 			$('main').removeClass('full-height-code');
 		}
 	})
+	$('.scale-frame').on('change',function(){
+		$('#area-preview').attr('data-zoom',$(this).val());
+	})
 	$('.open-setting').on('click',function(){
 		$('#popup-setting').addClass('show-setting');
 	})

@@ -73,17 +73,17 @@
 				<textarea id="jsCode"></textarea>
 			</div>
 		</div>
-		<div id="area-preview">
+		<div id="area-preview" data-zoom="1">
 			<iframe id="preview-window" frameborder="0"></iframe>
 		</div>
 		<div id="area-menu">
 			<div class="menu-left">
 				<div class="form-group flex scale">
 					<label for="scaleSelect">Scale</label>
-				    <select class="form-select focus-blue-bold" id="scaleSelect">
-				        <option>0.25x</option>
-				        <option>0.5x</option>
-				        <option selected>1x</option>
+				    <select class="form-select focus-blue-bold scale-frame" id="scaleSelect">
+				        <option value="1">1.0x</option>
+				        <option value="0.5">0.5x</option>
+				        <option value="0.25">0.25x</option>
 				    </select>
 				</div>
 				<div class="form-group flex">

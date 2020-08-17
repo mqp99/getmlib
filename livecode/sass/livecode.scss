@@ -6,6 +6,27 @@ header {
 	height: 0px;
 	background: #262626;
 }
+[data-zoom='0.25'] iframe {
+	transform: scale(.25);
+	position: absolute;
+	top: -150%;
+  	left: -150%;
+	width: 400%!important;
+	height: 400%!important;
+	transform-origin: center center;
+}
+[data-zoom='0.5'] iframe {
+	transform: scale(.5);
+	position: absolute;
+	top: -50%;
+  	left: -50%;
+	width: 200%!important;
+	height: 200%!important;
+	transform-origin: center center;
+}
+[data-zoom='1'] iframe {
+	transform: scale(1);
+}
 %btnColor {
 	background: #2c303a;
 	border-color: #444857;
@@ -127,6 +148,7 @@ main {
 		}
 	}
 	#area-preview {
+		position: relative;
 		width: 50%;
 		height: calc(100% - 40px);
 		// border: 1px solid red;
