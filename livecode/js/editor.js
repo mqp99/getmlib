@@ -5,7 +5,7 @@ $(function() {
 	var autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
 	var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
 	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
-	var times,autoSave = autoSaveGET, pushNoti = true;
+	var times,alertTime,autoSave = autoSaveGET, pushNoti = true;
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -224,19 +224,17 @@ $(function() {
 		times = setTimeout(()=>{ popupAlert__ID.removeClass('alert'); },time + 1000);
 	}
 	alertProcessing = () => {
-		clearTimeout(times);
+		clearTimeout(alertTime);
 		$('.menu-right .alert-processing').html(
-			`<label>Processing preview &nbsp;</label>
-			<i class="fal fa-spinner fa-spin"></i>`
+			`<label>Processing preview...</label>`
 		);
-		times = setTimeout(()=>{
+		alertTime = setTimeout(()=>{
 			$('.menu-right .alert-processing').html(
-				`<label>Processed preview &nbsp;</label>
-				<i class="fal fa-check"></i>`
+				`<label>Processed preview...</label>`
 			);
 		},1500);
-		times = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('');
+		alertTime = setTimeout(()=>{
+			$('.menu-right .alert-processing').html('<label>Status</label>');
 		},2500);
 	}
 	createRandom = (length) => {
