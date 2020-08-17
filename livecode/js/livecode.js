@@ -65,19 +65,23 @@ $(function(){
 		switch (_this) {
 			case 'html':
 				$('.main-content.html').addClass('selected');
-				$('.main-content.css, .main-content.js, .main-content.custom').removeClass('selected');
+				$('.main-content.css, .main-content.js, .main-content.custom, .main-content.language').removeClass('selected');
 				break;
 			case 'css':
 				$('.main-content.css').addClass('selected');
-				$('.main-content.html, .main-content.js, .main-content.custom').removeClass('selected');
+				$('.main-content.html, .main-content.js, .main-content.custom, .main-content.language').removeClass('selected');
 				break;
 			case 'js':
 				$('.main-content.js').addClass('selected');
-				$('.main-content.css, .main-content.html, .main-content.custom').removeClass('selected');
+				$('.main-content.css, .main-content.html, .main-content.custom, .main-content.language').removeClass('selected');
 				break;
 			case 'custom':
 				$('.main-content.custom').addClass('selected');
-				$('.main-content.css, .main-content.html, .main-content.js').removeClass('selected');
+				$('.main-content.css, .main-content.html, .main-content.js, .main-content.language').removeClass('selected');
+				break;
+			case 'language':
+				$('.main-content.language').addClass('selected');
+				$('.main-content.css, .main-content.html, .main-content.js, .main-content.custom').removeClass('selected');
 				break;
 		}
 	})

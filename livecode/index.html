@@ -33,6 +33,7 @@
 	<script src="https://mqp99.github.io/cdn/codemirror/lib/emmet.js"></script>
 	<script src="js/editor.min.js"></script>
 	<script src="js/livecode.min.js"></script>
+	<script src="js/translate.js"></script>
 </head>
 <body>
 	<header>
@@ -49,7 +50,7 @@
 				<button class="btn btn-code btn-blue-bold btn-sm" data-type="css">CSS</button>
 				<button class="btn btn-code btn-blue-bold btn-sm" data-type="js">JS</button>
 			</div>
-			<button class="btn btn-result btn-blue-bold btn-sm selected">RESULT</button>
+			<button class="btn btn-result btn-blue-bold btn-sm selected" data-translate="_result">RESULT</button>
 		</div>
 		<div id="area-code">
 			<div class="area-code-html">
@@ -80,7 +81,7 @@
 		<div id="area-menu">
 			<div class="menu-left">
 				<div class="form-group flex scale">
-					<label for="scaleSelect">Scale</label>
+					<label for="scaleSelect" data-translate="_scale">Scale</label>
 				    <select class="form-select focus-blue-bold scale-frame" id="scaleSelect">
 				        <option value="1">1.0x</option>
 				        <option value="0.5">0.5x</option>
@@ -88,18 +89,18 @@
 				    </select>
 				</div>
 				<div class="form-group flex">
-					<label class="open-setting-shortcut">Shortcuts</label>
+					<label class="open-setting-shortcut" data-translate="_shortcuts">Shortcuts</label>
 				</div>
 			</div>
 			<div class="menu-right">
 				<div class="form-group flex alert-processing">
-					<label>Status</label>
+					<label data-translate="_status">Status</label>
 				</div>
 				<!-- <div class="form-group flex">
 					<label for="exFormSelect">Embed</label>
 				</div> -->
 				<div class="form-group flex open-setting menu-item" data-type="custom">
-					<label>Export</label>
+					<label data-translate="_export">Export</label>
 				</div>
 			</div>
 		</div>
@@ -108,7 +109,7 @@
 			<div class="popup-overplay"></div>
 			<div class="setting">
 				<div class="setting-header">
-					<div class="title">Live Setting</div>
+					<div class="title" data-translate="_livesetting">Live Setting</div>
 					<div class="close close-setting"><i class="fal fa-times"></i></div>
 				</div>
 				<div class="setting-main">
@@ -116,17 +117,18 @@
 						<a href="#" class="menu-item html selected" data-type="html">HTML</a>
 						<a href="#" class="menu-item css" data-type="css">CSS</a>
 						<a href="#" class="menu-item js" data-type="js">JS</a>
-						<a href="#" class="menu-item custom" data-type="custom">Custom</a>
+						<a href="#" class="menu-item custom" data-type="custom" data-translate="_custom">Custom</a>
+						<a href="#" class="menu-item language" data-type="language" data-translate="_language">Language</a>
 					</div>
 					<div class="main-content html selected">
 						<div class="form-group flex">
 							<div class="title">HTML Format</div>
 							<button class="btn btn-outline-blue-bold bd-radius btn-sm" id="format-html">Format</button>
-						</div>		
+						</div>
 					</div>
 					<div class="main-content css">
 						<div class="form-group flex">
-							<div class="title">CSS Format</div>
+							<div class="title" data-translate="_cssformat">CSS Format</div>
 							<button class="btn btn-outline-blue-bold bd-radius btn-sm" id="format-css">Format</button>
 						</div>		
 					</div>
@@ -142,25 +144,34 @@
 					</div>
 					<div class="main-content custom">
 						<div class="form-group flex">
-							<div class="title">Save code (auto save)</div>
+							<div class="title" data-translate="_autosave">Save code (auto save)</div>
 							<label class="switch">
 								<input type="checkbox" id="auto-save" data-save='false'>
 								<span class="slider round"></span>
 							</label>
 						</div>
 						<div class="form-group flex">
-							<div class="title">Export JSON <span id="data-export"></span></div>
+							<div class="title" data-translate="_exportjson">Export JSON <span id="data-export"></span></div>
 							<label class="switch">
 								<input type="checkbox" id="file-export" value="export">
 								<span class="slider round"></span>
 							</label>
 						</div>
 						<div class="form-group flex">
-							<div class="title">Import JSON <span id="data-import"></span></div>
+							<div class="title" data-translate="_importjson">Import JSON <span id="data-import"></span></div>
 							<label class="switch">
 								<input type="checkbox" id="open-file-import" value="import">
 								<span class="slider round"></span>
 							</label>
+						</div>
+					</div>
+					<div class="main-content language">
+						<div class="form-group flex">
+							<div class="title" data-translate="_language">Language</div>
+							<select class="form-select focus-blue-bold" id="language-change">
+							    <option value="en_us">en_us</option>
+								<option value="vi_vn">vi_vn</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -170,41 +181,41 @@
 			<div class="popup-overplay"></div>
 			<div class="setting">
 				<div class="editor-commands">
-					<h3>Editor commands</h3>
+					<h3 data-translate="_editorcommands">Editor commands</h3>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Space</button>
 						</div>
-						<div>Autocomplete </div>
+						<div data-translate="_autocompleteEC">Autocomplete </div>
 					</div>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">F</button>
 						</div>
-						<div>Format Code [Ctrl + A] before [Shift + F] </div>
+						<div data-translate="_formatcodeEC">Format Code [Ctrl + A] before [Shift + F] </div>
 					</div>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">]</button>
 						</div>
-						<div>Indent Code Left </div>
+						<div data-translate="_indentcodeleftEC">Indent Code Left </div>
 					</div>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">[</button>
 						</div>
-						<div>Indent Code Right </div>
+						<div data-translate="_indentcoderightEC">Indent Code Right </div>
 					</div>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">/</button>
 						</div>
-						<div>Line Comment </div>
+						<div data-translate="_linecommentEC">Line Comment </div>
 					</div>
 					<div>
 						<div>
@@ -212,7 +223,7 @@
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">></button>
 						</div>
-						<div>Select Tag Next </div>
+						<div data-translate="_selecttagnextEC">Select Tag Next </div>
 					</div>
 					<div>
 						<div>
@@ -220,23 +231,23 @@
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius"><</button>
 						</div>
-						<div>Select Tag Prev </div>
+						<div data-translate="_selecttagprevEC">Select Tag Prev </div>
 					</div>
 				</div>
 				<div class="emmet-commands">
-					<h3>Emmet commands</h3>
+					<h3 data-translate="_emmetEC">Emmet commands</h3>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Tab</button>
 						</div>
-						<div>Expand abbreviation</div>
+						<div data-translate="_expandEC">Expand abbreviation</div>
 					</div>
 					<div>
 						<div>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">K</button>
 						</div>
-						<div>Remove Tag inside->outside </div>
+						<div data-translate="_removetaginoutEC">Remove Tag inside->outside </div>
 					</div>
 					<div>
 						<div>
@@ -244,7 +255,7 @@
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">K</button>
 						</div>
-						<div>Remove All Tag</div>
+						<div data-translate="_removealltagEC">Remove All Tag</div>
 					</div>
 					<div>
 						<div>
@@ -252,7 +263,7 @@
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
 							<button class="btn btn-outline-green-bold btn-sm bd-radius">D</button>
 						</div>
-						<div>Balance Tag Inward</div>
+						<div data-translate="_balanceEC">Balance Tag Inward</div>
 					</div>
 				</div>
 			</div>
