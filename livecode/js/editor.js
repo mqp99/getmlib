@@ -52,6 +52,7 @@ $(function() {
 	emmetCodeMirror(editorCSS);
 	/* ============================ SET VALUE CODEMIRROR BEFORE LOAD ============================  */
 	settingPage();
+	alertProcessing(0);
 	timeoutShowPreview(0,autoSave,!pushNoti);
 	if(autoSave == true) {
 		$('#auto-save').attr('data-save',true).attr('checked',true);
@@ -66,9 +67,9 @@ $(function() {
 	editorCSS.on('keypress',function(){ CodeMirror.commands.autocomplete(editorCSS); })
 	editorJS.on('keypress',function(){  CodeMirror.commands.autocomplete(editorJS); })
 	/* ============================   EVENT CHANGE CODEMIRROR ============================  */
-	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(); })
-	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(); })
-	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(); })
+	editorHTML.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(1000); })
+	editorCSS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(1000); })
+	editorJS.on('change',function(){ timeoutShowPreview(1500,autoSave,pushNoti);alertProcessing(1000); })
 	/* ============================ FUNCTION CHANGE CODEMIRROR ============================  */
 	function timeoutShowPreview(time,autoSave,pushNoti) {
 		// Clear time out inner Preview if change
@@ -97,7 +98,7 @@ $(function() {
 		if(_this == 'false') {
 			$(this).attr('data-save',true)
 			autoSaveCode();
-			alertProcessing();
+			alertProcessing(1000);
 			settingPage(autoSave = true)
 			//console.log('true')
 		}else{
@@ -215,6 +216,18 @@ $(function() {
 		console.log('storageUPDATE')
 	}
 	/* ============================ FUNCTION SUPPORT ============================  */
+	function alertProcessing(time) {
+		clearTimeout(alertTime);
+		alertTime = setTimeout(()=>{
+			$('.menu-right .alert-processing').html('<label>Processing preview...</label>');
+		},time);
+		alertTime = setTimeout(()=>{
+			$('.menu-right .alert-processing').html('<label>Processed preview</label>');
+		},time + 1000);
+		alertTime = setTimeout(()=>{
+			$('.menu-right .alert-processing').html('<label>Status</label>');
+		},time + 2000);
+	}
 	alertPopup = (textWait,textSuccess,time) => {
 		// Clear time out alert
 		clearTimeout(times);
@@ -222,18 +235,6 @@ $(function() {
 		popupAlert__ID.html(textWait).addClass('alert');
 		times = setTimeout(()=>{ popupAlert__ID.html(textSuccess); },time);
 		times = setTimeout(()=>{ popupAlert__ID.removeClass('alert'); },time + 1000);
-	}
-	alertProcessing = () => {
-		clearTimeout(alertTime);
-		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Processing preview...</label>');
-		},1000);
-		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Processed preview</label>');
-		},2000);
-		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Status</label>');
-		},3000);
 	}
 	createRandom = (length) => {
 	   	var result           = '';
