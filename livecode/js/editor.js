@@ -9,8 +9,9 @@ $(function() {
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
-		mode: "text/html",
+		mode: "text/xml",
    		keyMap: "sublime",
+   		profile: 'xhtml',
 	    theme: 'material-darker',
    		lint: true,
 		lineWrapping: true,
@@ -27,6 +28,7 @@ $(function() {
 	    tabSize:5,
 		mode: "css",
    		keyMap: "sublime",
+   		profile: 'css',
 	    theme: 'material-darker css',
    		lint: true,
 		lineWrapping: true,
@@ -46,6 +48,8 @@ $(function() {
     	autoCloseBrackets: true,
 		lineWrapping: true
 	});
+	emmetCodeMirror(editorHTML);
+	emmetCodeMirror(editorCSS);
 	/* ============================ SET VALUE CODEMIRROR BEFORE LOAD ============================  */
 	settingPage();
 	timeoutShowPreview(0,autoSave,!pushNoti);

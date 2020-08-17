@@ -28,6 +28,7 @@
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/edit/closebrackets.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/comment/comment.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/search/searchcursor.js"></script>
+	<script src="https://mqp99.github.io/cdn/codemirror/lib/emmet.js"></script>
 	<script src="js/editor.min.js"></script>
 	<script src="js/livecode.min.js"></script>
 </head>
@@ -73,6 +74,29 @@
 		</div>
 		<div id="area-preview">
 			<iframe id="preview-window" frameborder="0"></iframe>
+		</div>
+		<div id="area-menu">
+			<div class="menu-left">
+				<div class="form-group flex">
+					<label for="scaleSelect">Scale</label>
+				    <select class="form-select focus-blue-bold" id="scaleSelect">
+				        <option>0.25x</option>
+				        <option>0.5x</option>
+				        <option selected>1x</option>
+				    </select>
+				</div>
+				<div class="form-group flex">
+					<label for="exFormSelect">Shortcut</label>
+				</div>
+			</div>
+			<div class="menu-right">
+				<div class="form-group flex">
+					<label for="exFormSelect">Embed</label>
+				</div>
+				<div class="form-group flex">
+					<label for="exFormSelect">Export</label>
+				</div>
+			</div>
 		</div>
 		<div id="popup-alert"></div>
 		<div id="popup-setting">
