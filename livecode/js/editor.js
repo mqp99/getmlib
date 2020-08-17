@@ -79,7 +79,7 @@ $(function() {
 		// if autoSave = true
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
-			alertPopup('Đang lưu...','Đã lưu',1000);
+			alertProcessing();
 		}
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
@@ -90,20 +90,20 @@ $(function() {
 		frame.write(cssValue,htmlValue,jsValue);
 		//$('head',frame).append(`<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>`);
 		//setTimeout(()=>{$('body',frame).append()},500);
-		frame.close();
+		frame.close();;
 	}
 	$(document).on('change','#auto-save',function(){
 		_this = $(this).attr('data-save');
 		if(_this == 'false') {
 			$(this).attr('data-save',true)
 			autoSaveCode();
-			alertPopup('Đang lưu...','Đã lưu',1000);
+			alertProcessing();
 			settingPage(autoSave = true)
 			//console.log('true')
 		}else{
 			$(this).attr('data-save',false)
 			settingPage(autoSave = false)
-			alertPopup('Đang tắt...','Đã tắt',1000);
+			// alertPopup('Đang tắt...','Đã tắt',1000);
 			//console.log('false')
 		}
 	})
@@ -222,6 +222,22 @@ $(function() {
 		popupAlert__ID.html(textWait).addClass('alert');
 		times = setTimeout(()=>{ popupAlert__ID.html(textSuccess); },time);
 		times = setTimeout(()=>{ popupAlert__ID.removeClass('alert'); },time + 1000);
+	}
+	alertProcessing = () => {
+		clearTimeout(times);
+		$('.menu-right .alert-processing').html(
+			`<label>Processing preview &nbsp;</label>
+			<i class="fal fa-spinner fa-spin"></i>`
+		);
+		times = setTimeout(()=>{
+			$('.menu-right .alert-processing').html(
+				`<label>Processed preview &nbsp;</label>
+				<i class="fal fa-check"></i>`
+			);
+		},1500);
+		times = setTimeout(()=>{
+			$('.menu-right .alert-processing').html('');
+		},2500);
 	}
 	createRandom = (length) => {
 	   	var result           = '';

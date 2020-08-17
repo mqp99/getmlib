@@ -149,14 +149,20 @@ main {
 			display: flex;
 			align-items: center;
 			&.menu-right {
-				.form-group.flex:not(:first-child):not(:last-child) {
-					padding: 0 10px 0 10px;
-				}
-				.form-group.flex:last-child {
-					padding: 0 0 0 10px;
-				}
 				.form-group.flex {
 					padding: 0 10px 0 0;
+					&:not(:first-child):not(:last-child) {
+						padding: 0 10px 0 10px;
+					}
+					&:last-child {
+						padding: 0 0 0 10px;
+					}
+					i.fa-check {
+						color: green;
+					}
+					i.fa-spinner {
+						color: lightblue;
+					}
 				}
 			}
 			.form-group {
