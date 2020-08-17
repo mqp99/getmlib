@@ -21,7 +21,8 @@ $(function() {
 	    matchTags: {bothTags: true},
 		extraKeys: {
 			'Ctrl-Space': 'autocomplete',
-			'Ctrl-J': 'toMatchingTag'
+			'Ctrl-J': 'toMatchingTag',
+			"Shift-F": autoFormatSelectionHTML
 		}
 	});
 	var editorCSS = CodeMirror.fromTextArea($('#cssCode')[0], {
@@ -35,7 +36,8 @@ $(function() {
 		lineWrapping: true,
     	autoCloseBrackets: true,
 		extraKeys: {
-			'Ctrl-Space': 'autocomplete'
+			'Ctrl-Space': 'autocomplete',
+			"Shift-F": autoFormatSelectionCSS
 		}
 	});
 	var editorJS = CodeMirror.fromTextArea($('#jsCode')[0], {
@@ -51,6 +53,20 @@ $(function() {
 	});
 	emmetCodeMirror(editorHTML);
 	emmetCodeMirror(editorCSS);
+	function getSelectedRangeHTML() {
+        return { from: editorHTML.getCursor(true), to: editorHTML.getCursor(false) };
+	}
+	function autoFormatSelectionHTML() {
+   		var range = getSelectedRangeHTML();
+    	editorHTML.autoFormatRange(range.from, range.to);
+	}
+	function getSelectedRangeCSS() {
+        return { from: editorCSS.getCursor(true), to: editorCSS.getCursor(false) };
+	}
+	function autoFormatSelectionCSS() {
+   		var range = getSelectedRangeCSS();
+    	editorCSS.autoFormatRange(range.from, range.to);
+	}
 	/* ============================ SET VALUE CODEMIRROR BEFORE LOAD ============================  */
 	settingPage();
 	timeoutShowPreview(0,autoSave,!pushNoti);
@@ -80,8 +96,8 @@ $(function() {
 		// if autoSave = true
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
+			alertProcessing(1000);
 		}
-		alertProcessing(1000);
 		// Get value css code
 		var htmlValue = editorHTML.getValue();
 		var cssValue = `<style type="text/css">${editorCSS.getValue()}</style>`;
@@ -217,10 +233,10 @@ $(function() {
 	function alertProcessing(time) {
 		clearTimeout(alertTime);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Processing preview &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>');
+			$('.menu-right .alert-processing').html('<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>');
 		},time);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Processed preview &nbsp;</label><i class="fal fa-check"></i>');
+			$('.menu-right .alert-processing').html('<label>Code saved &nbsp;</label><i class="fal fa-check"></i>');
 		},time + 1000);
 		alertTime = setTimeout(()=>{
 			$('.menu-right .alert-processing').html('<label>Status</label>');

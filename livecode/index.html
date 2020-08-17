@@ -23,6 +23,7 @@
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/hint/javascript-hint.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/lint/lint.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/matchbrackets.js"></script>
+	<script src="https://mqp99.github.io/cdn/codemirror/addon/format-code.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/fold/xml-fold.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/edit/matchtags.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/edit/closetag.js"></script>
@@ -135,21 +136,21 @@
 					</div>
 					<div class="main-content custom">
 						<div class="form-group flex">
-							<div class="title">Lưu Code (tự động lưu)</div>
+							<div class="title">Save code (auto save)</div>
 							<label class="switch">
 								<input type="checkbox" id="auto-save" data-save='false'>
 								<span class="slider round"></span>
 							</label>
 						</div>
 						<div class="form-group flex">
-							<div class="title">Xuất File JSON <span id="data-export"></span></div>
+							<div class="title">Export JSON <span id="data-export"></span></div>
 							<label class="switch">
 								<input type="checkbox" id="file-export" value="export">
 								<span class="slider round"></span>
 							</label>
 						</div>
 						<div class="form-group flex">
-							<div class="title">Nhập File JSON <span id="data-import"></span></div>
+							<div class="title">Import JSON <span id="data-import"></span></div>
 							<label class="switch">
 								<input type="checkbox" id="open-file-import" value="import">
 								<span class="slider round"></span>
@@ -173,10 +174,10 @@
 					</div>
 					<div>
 						<div>
-							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
-							<button class="btn btn-outline-green-bold btn-sm bd-radius">D</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">F</button>
 						</div>
-						<div>Select Text Same</div>
+						<div>Format Code [Ctrl + A] before [Shift + F] </div>
 					</div>
 					<div>
 						<div>
