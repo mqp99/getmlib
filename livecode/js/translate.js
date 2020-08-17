@@ -70,7 +70,7 @@ $(function () {
 		},
 		'vi_vn': {
 			'_result': 'Kết quả',
-			'_scale': 'Thu phóng',
+			'_scale': 'Tỷ lệ',
 			'_shortcuts': 'Phím tắt',
 			'_status': 'Trạng thái',
 			'_export': 'Xuất JSON',
