@@ -53,8 +53,22 @@ $(function() {
 	});
 	emmetCodeMirror(editorHTML);
 	emmetCodeMirror(editorCSS);
+	$(document).on('click','#format-html',function(){
+		$(this).html('Formated');
+		setTimeout(()=>{$(this).html('Format');},1000);
+	    var totalLines = editorHTML.lineCount();
+	    var totalChars = editorHTML.getValue().length;
+	    editorHTML.autoFormatRange({line:0, ch:0}, {line:totalLines, ch:totalChars});
+	})
+	$(document).on('click','#format-css',function(){
+		$(this).html('Formated');
+		setTimeout(()=>{$(this).html('Format');},1000);
+	    var totalLines = editorCSS.lineCount();
+	    var totalChars = editorCSS.getValue().length;
+	    editorCSS.autoFormatRange({line:0, ch:0}, {line:totalLines, ch:totalChars});
+	})
 	function getSelectedRangeHTML() {
-        return { from: editorHTML.getCursor(true), to: editorHTML.getCursor(false) };
+	   return { from: editorHTML.getCursor(true), to: editorHTML.getCursor(false) };
 	}
 	function autoFormatSelectionHTML() {
    		var range = getSelectedRangeHTML();
