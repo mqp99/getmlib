@@ -219,10 +219,10 @@ $(function() {
 	function alertProcessing(time) {
 		clearTimeout(alertTime);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Processing preview...</label>');
+			$('.menu-right .alert-processing').html('<label>Processing preview &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>');
 		},time);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Processed preview</label>');
+			$('.menu-right .alert-processing').html('<label>Processed preview &nbsp;</label><i class="fal fa-check"></i>');
 		},time + 1000);
 		alertTime = setTimeout(()=>{
 			$('.menu-right .alert-processing').html('<label>Status</label>');
