@@ -22,6 +22,7 @@
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/hint/html-hint.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/hint/javascript-hint.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/lint/lint.js"></script>
+	<script src="https://mqp99.github.io/cdn/codemirror/addon/matchbrackets.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/fold/xml-fold.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/edit/matchtags.js"></script>
 	<script src="https://mqp99.github.io/cdn/codemirror/addon/edit/closetag.js"></script>
@@ -86,7 +87,7 @@
 				    </select>
 				</div>
 				<div class="form-group flex">
-					<label for="exFormSelect">Shortcut</label>
+					<label for="exFormSelect" class="open-setting-shortcut">Shortcut</label>
 				</div>
 			</div>
 			<div class="menu-right">
@@ -105,7 +106,6 @@
 				<div class="setting-header">
 					<div class="title">Live Setting</div>
 					<div class="close close-setting"><i class="fal fa-times"></i></div>
-
 				</div>
 				<div class="setting-main">
 					<div class="main-menu">
@@ -152,6 +152,97 @@
 								<span class="slider round"></span>
 							</label>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="popup-setting-shortcut">
+			<div class="popup-overplay"></div>
+			<div class="setting">
+				<div class="editor-commands">
+					<h3>Editor commands</h3>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Space</button>
+						</div>
+						<div>Autocomplete </div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">D</button>
+						</div>
+						<div>Select Text Same</div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">]</button>
+						</div>
+						<div>Indent Code Left </div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">[</button>
+						</div>
+						<div>Indent Code Right </div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">/</button>
+						</div>
+						<div>Line Comment </div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">></button>
+						</div>
+						<div>Select Tag Next </div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius"><</button>
+						</div>
+						<div>Select Tag Prev </div>
+					</div>
+				</div>
+				<div class="emmet-commands">
+					<h3>Emmet commands</h3>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Tab</button>
+						</div>
+						<div>Expand abbreviation</div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">K</button>
+						</div>
+						<div>Remove Tag inside->outside </div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">K</button>
+						</div>
+						<div>Remove All Tag</div>
+					</div>
+					<div>
+						<div>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Shift</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">Ctrl</button>
+							<button class="btn btn-outline-green-bold btn-sm bd-radius">D</button>
+						</div>
+						<div>Balance Tag Inward</div>
 					</div>
 				</div>
 			</div>

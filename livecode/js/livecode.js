@@ -49,8 +49,11 @@ $(function(){
 	$('.open-setting').on('click',function(){
 		$('#popup-setting').addClass('show-setting');
 	})
+	$('.open-setting-shortcut').on('click',function(){
+		$('#popup-setting-shortcut').addClass('show-setting');
+	})
 	$('.close-setting, .popup-overplay').on('click',function(){
-		$('#popup-setting').removeClass('show-setting');
+		$('#popup-setting,#popup-setting-shortcut').removeClass('show-setting');
 	})
 	$('.menu-item').on('click',function(){
 		var _this = $(this).attr('data-type');
@@ -75,8 +78,4 @@ $(function(){
 				break;
 		}
 	})
-	function getlocalStorage(key) {
-		var getStorage = JSON.parse(localStorage.getItem(key));
-		return getStorage = (getStorage) ? getStorage : [];
-	}
 })
