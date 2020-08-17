@@ -1,5 +1,6 @@
 html,body {
 	height: 100%;
+	overflow: hidden;
 }
 header {
 	height: 0px;
@@ -362,8 +363,6 @@ main {
 	}
 	main {
 		height: 100%;
-		box-sizing: border-box;
-		border: 1px solid red;
 		#area-code {
 			height: 260px;
 			.area-code-html,
