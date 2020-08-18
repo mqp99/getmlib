@@ -175,7 +175,7 @@ $(function() {
 		if(_this == 'import') {
 			if(storageGET('renderCode') != '') {
 				$(this).val('importing');
-				dataImport__ID.append(`<input type="file" id="file-import" value="import">`);
+				$('#data-import').append(`<input type="file" id="file-import" value="import">`);
 			}
 		}else{
 			$(this).val('import');

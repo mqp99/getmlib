@@ -391,6 +391,7 @@ main {
 					}
 					.form-group.flex {
 						display: flex;
+						position: relative;
 						width: 100%;
 						height: 40px;
 						margin-bottom: 5px;
@@ -401,7 +402,12 @@ main {
 							width: 100%;
 							display: flex;
   							flex-direction: column;
-							#data-export a{
+						}
+						#data-import,
+						#data-export {
+							position: absolute;
+							top: 30px;
+							a{
 								color: #3399ff!important;
 							}
 						}
