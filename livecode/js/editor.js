@@ -7,6 +7,26 @@ $(function() {
 	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
 	var times,alertTime,autoSave = autoSaveGET, pushNoti = true;
 	(renderCodeGET == '') ? storageSET('renderCode',{'html':'','css':'','js':''}) : [] ;
+	var dictionary = {
+		'vi_vn': {
+			processing: '<label>Đang lưu &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>',
+			processed: '<label>Đã lưu &nbsp;</label><i class="fal fa-check"></i>',
+			status: '<label data-translate="_status">Trạng thái</label>',
+			autosaveEnable: 'Phải bật auto save và có nội dung!',
+			tryagain: 'Vui lòng thử lại!',
+			jsonincorrect: 'Vui lòng sử dụng đúng tệp JSON!',
+			jsonnotallow: 'JSON này không phải của chúng tôi!',
+		},
+		'en_us': {
+			processing: '<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>',
+			processed: '<label>Code saved &nbsp;</label><i class="fal fa-check"></i>',
+			status: '<label data-translate="_status">Status</label>',
+			autosaveEnable: 'Turn on auto save and have code!',
+			tryagain: 'Please try again!',
+			jsonincorrect: 'Please use correct file JSON!',
+			jsonnotallow: 'This JSON is not allow!',
+		}
+	}
 	var editorHTML = CodeMirror.fromTextArea($('#htmlCode')[0], {
 		lineNumbers: true,
 	    tabSize:5,
@@ -104,25 +124,20 @@ $(function() {
 	editorJS.on('change',function(){ timeoutShowPreview(1000,autoSave,pushNoti); })
 	/* ============================ FUNCTION CHANGE CODEMIRROR ============================  */
 	function timeoutShowPreview(time,autoSave,pushNoti) {
-		// Clear time out inner Preview if change
 		clearTimeout(times);
 		times = setTimeout(()=>{ showPreview(autoSave,pushNoti); },time);
 	}
 	function showPreview(autoSave,pushNoti){
-		// if autoSave = true
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
 			alertProcessing(1000);
 		}
-		// Get value css code
 		var htmlValue = editorHTML.getValue();
 		var cssValue = `<style type="text/css">${editorCSS.getValue()}</style>`;
 		var jsValue = `<script type=\"text/javascript\">${editorJS.getValue()}</script>`;
 		var frame = $('#preview-window').contents()[0];
 		frame.open();
 		frame.write(cssValue,htmlValue,jsValue);
-		//$('head',frame).append(`<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>`);
-		//setTimeout(()=>{$('body',frame).append()},500);
 		frame.close();;
 	}
 	$(document).on('change','#auto-save',function(){
@@ -134,10 +149,8 @@ $(function() {
 			settingPage(autoSave = true)
 			//console.log('true')
 		}else{
-			$(this).attr('data-save',false)
-			settingPage(autoSave = false)
-			// alertPopup('Đang tắt...','Đã tắt',1000);
-			//console.log('false')
+			$(this).attr('data-save',false);
+			settingPage(autoSave = false);
 		}
 	})
 	/* ============================ MORE ============================  */
@@ -162,7 +175,9 @@ $(function() {
 		    	dataExport__ID.append(`<a href="data:${dataJSON}" download="${_id}.json">(tải xuống)</a>`);
 			}else{
 				$(this).prop('checked',false);
-				alertPopup('Phải bật auto save và có nội dụng!','Sorry...!',3000);
+				alertPopup(
+					dictionary[storageGET('settingPage').language].autosaveEnable,
+					dictionary[storageGET('settingPage').language].tryagain,3000);
 			}
 		}else{
 			$(this).val('export');
@@ -184,7 +199,9 @@ $(function() {
 	})
 	$(document).on('change','#file-import',function(e){
 		_this = e.target.files[0].name.split('.')[1].toLowerCase();
-		return (_this == 'json') ? readFile(e) : alertPopup('Vui lòng chọn đúng file JSON của chúng tôi!','Sorry...!',3000);
+		return (_this == 'json') ? readFile(e) : alertPopup(
+				dictionary[storageGET('settingPage').language].jsonincorrect,
+				dictionary[storageGET('settingPage').language].tryagain,3000);
 	})
 	/* ============================ FUNCTION READ FILE && CONTENT ============================  */
 	function readFile(evt) {
@@ -210,7 +227,9 @@ $(function() {
 			settingPage(autoSave = true);
 			$('#auto-save').attr('data-save',true).prop('checked',true);
 		}else{
-			alertPopup('Không phải file chúng tôi!','Sorry...!',2000);
+			alertPopup(
+				dictionary[storageGET('settingPage').language].jsonnotallow,
+				dictionary[storageGET('settingPage').language].tryagain,3000);
 		}
 	}
 	/* ============================ FUNCTION SETTING PAGE ============================  */
@@ -247,25 +266,10 @@ $(function() {
 	}
 	/* ============================ FUNCTION SUPPORT ============================  */
 	function alertProcessing(time) {
-		if(languageGET == 'vi_vn') {
-			var processing = '<label>Đang lưu &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>';
-			var processed = '<label>Đã lưu &nbsp;</label><i class="fal fa-check"></i>';
-			var status = '<label>Trạng thái</label>';
-		}else{
-			var processing = '<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>';
-			var processed = '<label>Code saved &nbsp;</label><i class="fal fa-check"></i>';
-			var status = '<label>Status</label>';
-		}
 		clearTimeout(alertTime);
-		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html(processing);
-		},time);
-		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html(processed);
-		},time + 1000);
-		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html(status);
-		},time + 2000);
+		alertTime = setTimeout(()=>{ $('.menu-right .alert-processing').html(dictionary[storageGET('settingPage').language].processing); },time);
+		alertTime = setTimeout(()=>{ $('.menu-right .alert-processing').html(dictionary[storageGET('settingPage').language].processed); },time + 1000);
+		alertTime = setTimeout(()=>{ $('.menu-right .alert-processing').html(dictionary[storageGET('settingPage').language].status); },time + 2000);
 	}
 	alertPopup = (textWait,textSuccess,time) => {
 		// Clear time out alert
