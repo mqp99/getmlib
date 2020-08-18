@@ -1,43 +1,10 @@
-
-// $(function(){
-// 	'use strict';
-// 	set_lang = function(dictionary) {
-// 		$('[data-translate]').val(function() {
-// 			var key = $(this).data('translate');
-// 			if(dictionary.hasOwnProperty(key)){
-// 				return dictionary[key];
-// 			}
-// 		})
-// 	}
-// 	$('#language-change').on('change', function() {
-// 		var language = $(this).val();
-// 		if(dictionary.hasOwnProperty(language)) {
-// 			set_lang(dictionary[language]);
-// 		}
-// 		console.log('sss')
-// 	})
-// 	set_lang(dictionary.language)
-// 	$('#language-change').on('change', function() {
-// 		var language = $(this).val();
-// 		setLanguage(dictionary)
-// 		//console.log(language)
-// 	})
-// 	function setLanguage(dictionary) {
-// 		$.each(dictionary, function(index,value) {
-// 			if(index == 'vi_vn') {
-// 				$('[data-translate').val(value);
-// 				for(i=0;i<=value.length;i++){
-// 					console.log(Object.keys(value))
-// 				}
-// 			}
-// 		})
-// 	}
-// })
 $(function () {
-
+    var settingPageGET = (storageGET('settingPage') != null) ? storageGET('settingPage') : [];
+	var autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
+	var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
+    var languageGET = (settingPageGET != '') ? settingPageGET.language : 'en_us';
     // Lets be professional, shall we?
     "use strict";
-
     // Some variables for later
     var dictionary, set_lang;
 	dictionary = {
@@ -51,7 +18,7 @@ $(function () {
 			'_custom': 'Custom',
 			'_language': 'Language',
 			'_cssformat': 'CSS Format',
-			'_autosave': 'Tự động lưu',
+			'_autosave': 'Auto Save',
 			'_exportjson': 'Export JSON',
 			'_importjson': 'Import JSON',
 			'_editorcommands': 'Editor Commands',
@@ -106,16 +73,35 @@ $(function () {
             }
         });
     };
-
+    if(languageGET == 'vi_vn') {
+    	$("#language-change").val(languageGET).prop('selected',true)
+    }
     // Swap languages when menu changes
     $("#language-change").on("change", function () {
         var language = $(this).val().toLowerCase();
         if (dictionary.hasOwnProperty(language)) {
+        	var objLanguage = {
+				'autoSave': autoSaveGET,
+				'useLibraryJS': useLibraryJSGET,
+				'language': language
+        	}
+        	storageSET('settingPage', objLanguage);
             set_lang(dictionary[language]);
         }
     });
 
     // Set initial language to English
-    set_lang(dictionary.en_us);
+    set_lang(dictionary[languageGET]);
 
+	/* ============================ FUNCTION LOCALSTORAGE ============================  */
+	function storageSET(key,value) {
+		localStorage.setItem(key,JSON.stringify(value));
+	}
+	function storageGET(key) {
+		var getStorage = JSON.parse(localStorage.getItem(key));
+		return getStorage = (getStorage) ? getStorage : [];
+	}
+	function storageUPDATE() {
+		console.log('storageUPDATE')
+	}
 });

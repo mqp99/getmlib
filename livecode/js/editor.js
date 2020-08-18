@@ -1,9 +1,9 @@
 $(function() {
-	var settingPageGET = (storageGET('settingPage') != null) ? storageGET('settingPage') : [];
 	var renderCodeGET = (storageGET('renderCode') != null) ? storageGET('renderCode') : [];
+	var settingPageGET = (storageGET('settingPage') != null) ? storageGET('settingPage') : [];
 	var autoSaveGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoSave) : false;
-	var autoFormatGET = (settingPageGET != '') ? JSON.parse(settingPageGET.autoFormat) : false;
 	var useLibraryJSGET = (settingPageGET != '') ? JSON.parse(settingPageGET.useLibraryJS) : false;
+	var languageGET = (settingPageGET != '') ? settingPageGET.language : 'en_us';
 	var popupAlert__ID = $('#popup-alert'),dataImport__ID = $('#data-import'),openDataImport__ID = $('#open-file-import'),dataExport__ID = $('#data-export');
 	var times,alertTime,autoSave = autoSaveGET, pushNoti = true;
 	(renderCodeGET == '') ? storageSET('renderCode',{'html':'','css':'','js':''}) : [] ;
@@ -214,11 +214,11 @@ $(function() {
 		}
 	}
 	/* ============================ FUNCTION SETTING PAGE ============================  */
-	function settingPage(autoSave = autoSaveGET,useLibraryJS = useLibraryJSGET) {
+	function settingPage(autoSave = autoSaveGET,useLibraryJS = useLibraryJSGET,language = languageGET) {
 		var obj = {
 			'autoSave': autoSave,
-			'autoFormat': false,
-			'useLibraryJS': useLibraryJSGET
+			'useLibraryJS': useLibraryJSGET,
+			'language': languageGET
 		}
 		storageSET('settingPage',obj);
 	}
@@ -247,15 +247,24 @@ $(function() {
 	}
 	/* ============================ FUNCTION SUPPORT ============================  */
 	function alertProcessing(time) {
+		if(languageGET == 'vi_vn') {
+			var processing = '<label>Đang lưu &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>';
+			var processed = '<label>Đã lưu &nbsp;</label><i class="fal fa-check"></i>';
+			var status = '<label>Trạng thái</label>';
+		}else{
+			var processing = '<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>';
+			var processed = '<label>Code saved &nbsp;</label><i class="fal fa-check"></i>';
+			var status = '<label>Status</label>';
+		}
 		clearTimeout(alertTime);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>');
+			$('.menu-right .alert-processing').html(processing);
 		},time);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Code saved &nbsp;</label><i class="fal fa-check"></i>');
+			$('.menu-right .alert-processing').html(processed);
 		},time + 1000);
 		alertTime = setTimeout(()=>{
-			$('.menu-right .alert-processing').html('<label>Status</label>');
+			$('.menu-right .alert-processing').html(status);
 		},time + 2000);
 	}
 	alertPopup = (textWait,textSuccess,time) => {
@@ -275,4 +284,5 @@ $(function() {
 	   }
 	   return result;
 	}
+	localStorage.clear();
 });
