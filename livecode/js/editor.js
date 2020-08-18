@@ -284,5 +284,4 @@ $(function() {
 	   }
 	   return result;
 	}
-	localStorage.clear();
 });
