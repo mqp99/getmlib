@@ -4,7 +4,7 @@ $(function(){
 		_CLASS_areaCodeCSS = $('.area-code-css'),
 		_CLASS_areaCodeJS = $('.area-code-js');
 	///////////////////////////////////////
-	_CLASS_areaCodeHTML.addClass('active');
+	$('.area-code-html').addClass('active');
 	$('.btn-code').on('click',function(){
 		var _this = $.attr(this,'data-type');
 		$(this).siblings().removeClass('selected');
@@ -22,16 +22,16 @@ $(function(){
 		}
 		switch (_this) {
 			case 'html':
-				_CLASS_areaCodeHTML.addClass('active');
-				$(_CLASS_areaCodeCSS,_CLASS_areaCodeJS).removeClass('active');
+				$('.area-code-html').addClass('active');
+				$('.area-code-css,.area-code-js').removeClass('active');
 				break;
 			case 'css':
-				_CLASS_areaCodeCSS.addClass('active');
-				$(_CLASS_areaCodeHTML,_CLASS_areaCodeJS).removeClass('active');
+				$('.area-code-css').addClass('active');
+				$('.area-code-html,.area-code-js').removeClass('active');
 				break;
 			case 'js':
-				_CLASS_areaCodeJS.addClass('active');
-				$(_CLASS_areaCodeHTML,_CLASS_areaCodeCSS).removeClass('active');
+				$('.area-code-js').addClass('active');
+				$('.area-code-html,.area-code-css').removeClass('active');
 				break;
 			default:
 				alert('Somethings went wrong!')

@@ -22,6 +22,8 @@ $(function() {
 			jsonincorrect: 'Vui lòng sử dụng đúng tệp JSON!',
 			jsonnotallow: 'JSON này không phải của chúng tôi!',
 			jsondownload: 'tải xuống',
+			formated: 'Đã định dạng',
+			format: 'Định dạng',
 		},
 		'en_us': {
 			processing: '<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>',
@@ -32,6 +34,8 @@ $(function() {
 			jsonincorrect: 'Please use correct file JSON!',
 			jsonnotallow: 'This JSON is not allow!',
 			jsondownload: 'Download',
+			formated: 'Formated',
+			format: 'Format',
 		}
 	}
 /* ============================ CODEMIRROR ============================  */
@@ -142,18 +146,25 @@ $(function() {
 	}
 /* ============================ FUNCTION DOCUMENT ============================  */
 	$(document).on('click','#format-html',function(){
-		$(this).html('Formated');
-		setTimeout(()=>{$(this).html('Format');},1000);
+		$(this).html(dictionary[storageGET('settingPage').language].formated);
+		setTimeout(()=>{$(this).html(dictionary[storageGET('settingPage').language].format);},1000);
 	    var totalLines = editorHTML.lineCount();
 	    var totalChars = editorHTML.getValue().length;
 	    editorHTML.autoFormatRange({line:0, ch:0}, {line:totalLines, ch:totalChars});
 	})
 	$(document).on('click','#format-css',function(){
-		$(this).html('Formated');
-		setTimeout(()=>{$(this).html('Format');},1000);
+		$(this).html(dictionary[storageGET('settingPage').language].formated);
+		setTimeout(()=>{$(this).html(dictionary[storageGET('settingPage').language].format);},1000);
 	    var totalLines = editorCSS.lineCount();
 	    var totalChars = editorCSS.getValue().length;
 	    editorCSS.autoFormatRange({line:0, ch:0}, {line:totalLines, ch:totalChars});
+	})
+	$(document).on('click','#format-js',function(){
+		$(this).html(dictionary[storageGET('settingPage').language].formated);
+		setTimeout(()=>{$(this).html(dictionary[storageGET('settingPage').language].format);},1000);
+	    var totalLines = editorJS.lineCount();
+	    var totalChars = editorJS.getValue().length;
+	    editorJS.autoFormatRange({line:0, ch:0}, {line:totalLines, ch:totalChars});
 	})
 	$(document).on('change','#auto-save',function(){
 		if($.attr(this,'data-save') == 'false') {
