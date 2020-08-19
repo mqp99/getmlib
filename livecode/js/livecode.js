@@ -1,49 +1,49 @@
 $(function(){
-	$('.area-code-html').addClass('active');
+	var _TAGS_main = $('main'),
+		_CLASS_areaCodeHTML = $('.area-code-html'),
+		_CLASS_areaCodeCSS = $('.area-code-css'),
+		_CLASS_areaCodeJS = $('.area-code-js');
+	///////////////////////////////////////
+	_CLASS_areaCodeHTML.addClass('active');
 	$('.btn-code').on('click',function(){
-		var _this = $(this).attr('data-type');
+		var _this = $.attr(this,'data-type');
 		$(this).siblings().removeClass('selected');
 		$(this).toggleClass('selected');
 		for(i=0;i<=$('.btn-code').length;i++){
 			if(!$('.btn-code').not('.selected')[i]) {
 				if($('.btn-code').not('.selected').length == 2) {
-					//console.log('btn on')
 					$('.btn-result').attr('disabled',false);
-					$('main').removeClass('full-height-view');
+					_TAGS_main.removeClass('full-height-view');
 				}else{
-					//console.log('btn off')
 					$('.btn-result').addClass('selected').attr('disabled',true);
-					$('main').removeClass('full-height-code').addClass('full-height-view');
+					_TAGS_main.removeClass('full-height-code').addClass('full-height-view');
 				}
-				// console.log($('.btn-code').not('.selected').length)
 			}
 		}
 		switch (_this) {
 			case 'html':
-				$('.area-code-html').addClass('active');
-				$('.area-code-css, .area-code-js').removeClass('active');
+				_CLASS_areaCodeHTML.addClass('active');
+				$(_CLASS_areaCodeCSS,_CLASS_areaCodeJS).removeClass('active');
 				break;
 			case 'css':
-				$('.area-code-css').addClass('active');
-				$('.area-code-html, .area-code-js').removeClass('active');
+				_CLASS_areaCodeCSS.addClass('active');
+				$(_CLASS_areaCodeHTML,_CLASS_areaCodeJS).removeClass('active');
 				break;
 			case 'js':
-				$('.area-code-js').addClass('active');
-				$('.area-code-css, .area-code-html').removeClass('active');
+				_CLASS_areaCodeJS.addClass('active');
+				$(_CLASS_areaCodeHTML,_CLASS_areaCodeCSS).removeClass('active');
 				break;
 			default:
-				alert('s')
+				alert('Somethings went wrong!')
 				break;
 		}
 	})
 	$('.btn-result').on('click',function(){
 		$(this).toggleClass('selected');
 		if($(this).not('.selected').length == 1) {
-			//console.log('result off')
-			$('main').addClass('full-height-code');
+			_TAGS_main.addClass('full-height-code');
 		}else{
-			//console.log('result on')
-			$('main').removeClass('full-height-code');
+			_TAGS_main.removeClass('full-height-code');
 		}
 	})
 	$('.scale-frame').on('change',function(){
