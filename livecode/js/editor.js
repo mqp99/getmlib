@@ -21,6 +21,7 @@ $(function() {
 			tryagain: 'Vui lòng thử lại!',
 			jsonincorrect: 'Vui lòng sử dụng đúng tệp JSON!',
 			jsonnotallow: 'JSON này không phải của chúng tôi!',
+			jsondownload: 'tải xuống',
 		},
 		'en_us': {
 			processing: '<label>Code saving &nbsp;</label><i class="fal fa-spin fa-spinner-third"></i>',
@@ -30,6 +31,7 @@ $(function() {
 			tryagain: 'Please try again!',
 			jsonincorrect: 'Please use correct file JSON!',
 			jsonnotallow: 'This JSON is not allow!',
+			jsondownload: 'Download',
 		}
 	}
 /* ============================ CODEMIRROR ============================  */
@@ -187,7 +189,7 @@ $(function() {
 				//___CREATED DATA JSON___
 				dataJSON = `text/json;charset=utf-8, ${encodeURIComponent(JSON.stringify(storageGET('renderCode')))}`;
 				//___CREATED <a> AND SET VALUE___
-		    	__ID__dataExport.append(` <a 	href="data:${dataJSON}" download="${_idRandom}.json"> (tải xuống) </a>` );
+		    	__ID__dataExport.append(` <a href="data:${dataJSON}" download="${_idRandom}.json"> (${dictionary[storageGET('settingPage').language].jsondownload}) </a>` );
 			}else{
 				//___IF VALUE EXPORT == NULL BLOCK [CHECKED]___
 				$.prop(this,'checked',false);
