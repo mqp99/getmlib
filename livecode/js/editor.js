@@ -133,11 +133,14 @@ $(function() {
 /* ============================ FUNCTION SHOW RESULT PREVIEW ============================  */
 	function showPreview(autoSave,pushNoti){
 		var htmlValue = editorHTML.getValue();
+		var cssMlib = `<link rel="stylesheet" href="https://mqp99.github.io/cdn/mlib/v0.0.1/css/app.min.css"/>`;
+		var jq = `<script href="https://mqp99.github.io/cdn/jquery/jquery-3.5.1.min.js"></script>`;
+		var jsMlib = `<script href="https://mqp99.github.io/cdn/mlib/v0.0.1/js/mlib.min.js"></script>`;
 		var cssValue = `<style type="text/css">${editorCSS.getValue()}</style>`;
 		var jsValue = `<script type=\"text/javascript\">${editorJS.getValue()}</script>`;
 		var frame = $('#preview-window').contents()[0];
 		frame.open();
-		frame.write(cssValue,htmlValue,jsValue);
+		frame.write(cssMlib,cssValue,htmlValue,jsValue);
 		frame.close();
 		if(autoSave == true && pushNoti == true) {
 			autoSaveCode();
